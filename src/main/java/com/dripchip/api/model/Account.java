@@ -1,5 +1,6 @@
 package com.dripchip.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -18,6 +19,7 @@ public class Account {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
 
     public Account(String firstName, String lastName, String email, String password) {
