@@ -1,4 +1,4 @@
-package com.dripchip.api.model;
+package com.dripchip.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
