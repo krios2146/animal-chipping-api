@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+/docker/animal_chipization_2022.tar
 
 ### STS ###
 .apt_generated
