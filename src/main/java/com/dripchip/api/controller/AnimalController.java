@@ -1,14 +1,19 @@
 package com.dripchip.api.controller;
 
-import com.dripchip.api.entity.*;
+import com.dripchip.api.entity.Account;
+import com.dripchip.api.entity.Animal;
+import com.dripchip.api.entity.AnimalType;
+import com.dripchip.api.entity.Location;
 import com.dripchip.api.entity.dto.AnimalDto;
 import com.dripchip.api.entity.enums.Gender;
 import com.dripchip.api.entity.enums.LifeStatus;
+import com.dripchip.api.entity.request.AnimalRequest;
 import com.dripchip.api.entity.specification.AnimalSpecification;
 import com.dripchip.api.repository.AccountRepository;
 import com.dripchip.api.repository.AnimalRepository;
 import com.dripchip.api.repository.AnimalTypeRepository;
 import com.dripchip.api.repository.LocationRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,12 +22,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class AnimalController {
@@ -95,9 +99,9 @@ public class AnimalController {
         return ResponseEntity.ok().body(animals.getContent());
     }
 
-    @PostMapping
-    public ResponseEntity<Animal> createAnimal(@RequestBody AnimalDto animalRequest) {
-        if (animalRequest.getAnimalTypesId().size() == 0) {
+    @PostMapping("/animals")
+    public ResponseEntity<AnimalDto> createAnimal(@Valid @RequestBody AnimalRequest animalRequest) {
+        if (animalRequest.getAnimalTypes().size() == 0) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -113,9 +117,9 @@ public class AnimalController {
             return ResponseEntity.badRequest().build();
         }
 
-        List<AnimalType> animalTypeList = animalTypeRepository.findAllById(animalRequest.getAnimalTypesId());
+        List<AnimalType> animalTypeList = animalTypeRepository.findAllById(animalRequest.getAnimalTypes());
 
-        if (animalTypeList.size() != animalRequest.getAnimalTypesId().size()) {
+        if (animalTypeList.size() != animalRequest.getAnimalTypes().size()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
@@ -145,11 +149,13 @@ public class AnimalController {
         animal.setChippingDateTime(LocalDateTime.now());
         animal.setChipper(chipper);
         animal.setChippingLocation(chippingLocation);
-        animal.setVisitedLocations(List.of(new AnimalVisitedLocation(LocalDateTime.now(), chippingLocation, animal)));
+        animal.setVisitedLocations(List.of());
 
         Animal savedAnimal = animalRepository.save(animal);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedAnimal);
+        AnimalDto animalDto = getDtoFrom(savedAnimal);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(animalDto);
     }
 
     private static boolean isValidDate(String date) {
@@ -178,6 +184,23 @@ public class AnimalController {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    private static AnimalDto getDtoFrom(Animal animal) {
+        return new AnimalDto(
+                animal.getId(),
+                animal.getAnimalTypes().stream().map(AnimalType::getId).toList(),
+                animal.getWeight(),
+                animal.getLength(),
+                animal.getHeight(),
+                animal.getGender(),
+                animal.getLifeStatus(),
+                OffsetDateTime.of(animal.getChippingDateTime(), ZoneOffset.UTC),
+                animal.getChipper().getId(),
+                animal.getChippingLocation().getId(),
+                new ArrayList<>(),
+                null
+        );
     }
 
 }
