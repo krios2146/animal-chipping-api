@@ -7,6 +7,7 @@ import com.dripchip.api.entity.enums.Gender;
 import com.dripchip.api.entity.enums.LifeStatus;
 import com.dripchip.api.entity.request.AnimalRequest;
 import com.dripchip.api.entity.request.PostAnimalRequest;
+import com.dripchip.api.entity.request.PutAnimalRequest;
 import com.dripchip.api.entity.specification.AnimalSpecification;
 import com.dripchip.api.repository.AccountRepository;
 import com.dripchip.api.repository.AnimalRepository;
@@ -162,6 +163,59 @@ public class AnimalController {
         AnimalDto animalDto = getDtoFrom(savedAnimal);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(animalDto);
+    }
+
+    @PutMapping("/animals/{animalId}")
+    public ResponseEntity<AnimalDto> updateAnimal(@PathVariable Long animalId,
+                                                  @Valid @RequestBody PutAnimalRequest animalRequest) {
+        if (animalId == null || animalId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (!isValidRequest(animalRequest)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (!isValidLifeStatus(animalRequest.getLifeStatus())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<Account> accountOptional = accountRepository.findById(animalRequest.getChipperId());
+        Optional<Location> locationOptional = locationRepository.findById(animalRequest.getChippingLocationId());
+
+        if (animalOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (accountOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (locationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        Account chipper = accountOptional.get();
+        Location chippingLocation = locationOptional.get();
+
+        if (animal.getLifeStatus().equals(LifeStatus.DEAD) &&
+                LifeStatus.valueOf(animalRequest.getLifeStatus()).equals(LifeStatus.ALIVE)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        animal.setWeight(animalRequest.getWeight());
+        animal.setLength(animalRequest.getLength());
+        animal.setHeight(animalRequest.getHeight());
+        animal.setGender(Gender.valueOf(animalRequest.getGender()));
+        animal.setLifeStatus(LifeStatus.valueOf(animalRequest.getLifeStatus()));
+        animal.setChipper(chipper);
+        animal.setChippingLocation(chippingLocation);
+
+        AnimalDto animalDto = getDtoFrom(animal);
+
+        return ResponseEntity.ok().body(animalDto);
     }
 
     @PostMapping("/animals/{animalId}/locations/{pointId}")
