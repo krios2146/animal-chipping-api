@@ -34,9 +34,13 @@ public class Animal {
 
     private LocalDateTime chippingDateTime;
 
-    private Long chipperId;
+    @ManyToOne
+    @JoinColumn(name = "chipper_id")
+    private Account chipper;
 
-    private Long chippingLocationId;
+    @ManyToOne
+    @JoinColumn(name = "chipping_location_id")
+    private Location chippingLocation;
 
     @OneToMany(mappedBy = "animal")
     private List<AnimalVisitedLocation> animalVisitedLocations;
