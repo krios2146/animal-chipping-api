@@ -86,7 +86,7 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(accountDto);
     }
 
-    @PutMapping("/{accountId}")
+    @PutMapping("/accounts/{accountId}")
     public ResponseEntity<AccountDto> updateAccount(
             @PathVariable("accountId") Long accountId,
             @Valid @RequestBody Account account
@@ -101,12 +101,14 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        accountOptional = accountRepository.findByEmail(account.getEmail());
+        if (!accountOptional.get().getEmail().equals(account.getEmail())) {
+            accountOptional = accountRepository.findByEmail(account.getEmail());
 
-        if (accountOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            if (accountOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
         }
-
+        
         account.setFirstName(account.getFirstName());
         account.setLastName(account.getLastName());
         account.setEmail(account.getEmail());
