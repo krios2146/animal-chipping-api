@@ -2,10 +2,10 @@ package com.dripchip.api.controller;
 
 import com.dripchip.api.entity.Location;
 import com.dripchip.api.repository.LocationRepository;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,12 +25,30 @@ public class LocationController {
 
         Optional<Location> locationOptional = locationRepository.findById(pointId);
 
-        if (locationOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        return locationOptional.map(location -> ResponseEntity.ok().body(location))
+                .orElseGet(() -> ResponseEntity.notFound().build());
 
-        return ResponseEntity.ok().body(locationOptional.get());
     }
 
+    @PostMapping("/locations")
+    public ResponseEntity<Location> createLocation(@Valid @RequestBody Location location) {
+        if (!isValidCoordinates(location.getLatitude(), location.getLongitude())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Location savedLocation = locationRepository.save(location);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedLocation);
+    }
+
+    private static boolean isValidCoordinates(Double lat, Double lon) {
+        if (lat < -90 || lat > 90) {
+            return false;
+        }
+        if (lon < -180 || lon > 180) {
+            return false;
+        }
+        return true;
+    }
 }
 
