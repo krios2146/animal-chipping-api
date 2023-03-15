@@ -20,8 +20,14 @@ public class AnimalVisitedLocation {
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
-    
+
     @ManyToOne
     @JoinColumn(name = "animal_id")
     private Animal animal;
+
+    public AnimalVisitedLocation(LocalDateTime dateTimeOfVisitLocationPoint, Location location, Animal animal) {
+        this.dateTimeOfVisitLocationPoint = dateTimeOfVisitLocationPoint;
+        this.location = location;
+        this.animal = animal;
+    }
 }
