@@ -27,7 +27,7 @@ public class Animal {
     private Gender gender;
     private LifeStatus lifeStatus;
     private LocalDateTime chippingDateTime;
-    private Integer chipperId;
+    private Long chipperId;
     private Long chippingLocationId;
     private List<Long> visitedLocations;
     private LocalDateTime deathDateTime;
