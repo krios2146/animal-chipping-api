@@ -2,10 +2,7 @@ package com.dripchip.api.entity;
 
 import com.dripchip.api.entity.enums.Gender;
 import com.dripchip.api.entity.enums.LifeStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +17,8 @@ public class Animal {
     @Id
     @GeneratedValue
     private Long id;
-    private List<Long> animalTypes;
+    @OneToMany
+    private List<AnimalType> animalTypes;
     private Double weight;
     private Double length;
     private Double height;
