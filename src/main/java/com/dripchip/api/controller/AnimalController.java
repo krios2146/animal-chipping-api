@@ -112,7 +112,7 @@ public class AnimalController {
         }
 
         boolean isValidIds = animalRequest.getAnimalTypes().stream()
-                .allMatch(id -> id <= 0);
+                .allMatch(id -> id > 0);
 
         if (!isValidIds) {
             return ResponseEntity.badRequest().build();
