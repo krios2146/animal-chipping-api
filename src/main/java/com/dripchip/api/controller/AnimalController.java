@@ -41,19 +41,25 @@ public class AnimalController {
     }
 
     @GetMapping("/animals/{animalId}")
-    public ResponseEntity<Animal> getAnimalById(@PathVariable Long animalId) {
+    public ResponseEntity<AnimalDto> getAnimalById(@PathVariable Long animalId) {
         if (animalId == null || animalId <= 0) {
             return ResponseEntity.badRequest().build();
         }
 
-        Optional<Animal> animal = animalRepository.findById(animalId);
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
 
-        return animal.map(value -> ResponseEntity.ok().body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (animalOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        AnimalDto animalDto = getDtoFrom(animal);
+
+        return ResponseEntity.ok().body(animalDto);
     }
 
     @GetMapping("animals/search")
-    public ResponseEntity<List<Animal>> searchAnimals(
+    public ResponseEntity<List<AnimalDto>> searchAnimals(
             @RequestParam(required = false) String startDateTimeParameter,
             @RequestParam(required = false) String endDateTimeParameter,
             @RequestParam(required = false) Long chipperId,
@@ -94,12 +100,21 @@ public class AnimalController {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok().body(animals.getContent());
+        List<AnimalDto> animalDtoList = animals.stream().map(AnimalController::getDtoFrom).toList();
+
+        return ResponseEntity.ok().body(animalDtoList);
     }
 
     @PostMapping("/animals")
     public ResponseEntity<AnimalDto> createAnimal(@Valid @RequestBody AnimalRequest animalRequest) {
         if (animalRequest.getAnimalTypes().size() == 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        boolean isValidIds = animalRequest.getAnimalTypes().stream()
+                .allMatch(id -> id <= 0);
+
+        if (!isValidIds) {
             return ResponseEntity.badRequest().build();
         }
 
