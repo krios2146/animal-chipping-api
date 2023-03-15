@@ -89,7 +89,7 @@ public class AccountController {
     @PutMapping("/accounts/{accountId}")
     public ResponseEntity<AccountDto> updateAccount(
             @PathVariable("accountId") Long accountId,
-            @Valid @RequestBody Account account
+            @Valid @RequestBody Account accountFromRequest
     ) {
         if (accountId == null || accountId <= 0) {
             return ResponseEntity.badRequest().build();
@@ -101,22 +101,24 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        if (!accountOptional.get().getEmail().equals(account.getEmail())) {
-            accountOptional = accountRepository.findByEmail(account.getEmail());
+        Account accountToUpdate = accountOptional.get();
+
+        if (!accountToUpdate.getEmail().equals(accountFromRequest.getEmail())) {
+            accountOptional = accountRepository.findByEmail(accountFromRequest.getEmail());
 
             if (accountOptional.isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
         }
-        
-        account.setFirstName(account.getFirstName());
-        account.setLastName(account.getLastName());
-        account.setEmail(account.getEmail());
-        account.setPassword(account.getPassword());
 
-        account = accountRepository.save(account);
+        accountToUpdate.setFirstName(accountFromRequest.getFirstName());
+        accountToUpdate.setLastName(accountFromRequest.getLastName());
+        accountToUpdate.setEmail(accountFromRequest.getEmail());
+        accountToUpdate.setPassword(accountFromRequest.getPassword());
 
-        AccountDto accountDto = buildAccountDtoFromAccount(account);
+        Account updatedAccount = accountRepository.save(accountToUpdate);
+
+        AccountDto accountDto = buildAccountDtoFromAccount(updatedAccount);
 
         return ResponseEntity.ok().body(accountDto);
     }
