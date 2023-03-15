@@ -1,6 +1,7 @@
 package com.dripchip.api.controller;
 
 import com.dripchip.api.entity.Account;
+import com.dripchip.api.entity.dto.AccountDto;
 import com.dripchip.api.entity.specification.AccountSpecifications;
 import com.dripchip.api.repository.AccountRepository;
 import jakarta.validation.Valid;
@@ -23,29 +24,31 @@ public class AccountController {
     }
 
     @GetMapping("/accounts/{accountId}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
+    public ResponseEntity<AccountDto> getAccountById(@PathVariable Long accountId) {
         if (accountId <= 0) {
             return ResponseEntity.badRequest().build();
         }
 
-        Optional<Account> account = accountRepository.findById(accountId);
+        Optional<Account> accountOptional = accountRepository.findById(accountId);
 
-        if (account.isEmpty()) {
+        if (accountOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(account.get());
+        Account account = accountOptional.get();
+        AccountDto accountDto = buildAccountDtoFromAccount(account);
+
+        return ResponseEntity.ok().body(accountDto);
     }
 
     @GetMapping("/accounts/search")
-    public ResponseEntity<List<Account>> searchAccounts(
+    public ResponseEntity<List<AccountDto>> searchAccounts(
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String email,
             @RequestParam(defaultValue = "0") int from,
             @RequestParam(defaultValue = "10") int size
     ) {
-
         if (size <= 0 || from < 0) {
             return ResponseEntity.badRequest().build();
         }
@@ -61,20 +64,67 @@ public class AccountController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(accounts.getContent());
+        List<AccountDto> accountDtoList = accounts.stream()
+                .map(AccountController::buildAccountDtoFromAccount)
+                .toList();
+
+        return ResponseEntity.ok().body(accountDtoList);
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<Account> registerAccount(@Valid @RequestBody Account account) {
+    public ResponseEntity<AccountDto> registerAccount(@Valid @RequestBody Account account) {
         Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
 
         if (accountOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
-        accountRepository.save(account);
+        account = accountRepository.save(account);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(account);
+        AccountDto accountDto = buildAccountDtoFromAccount(account);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(accountDto);
     }
 
+    @PutMapping("/{accountId}")
+    public ResponseEntity<AccountDto> updateAccount(
+            @PathVariable("accountId") Long accountId,
+            @Valid @RequestBody Account account
+    ) {
+        if (accountId == null || accountId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Account> accountOptional = accountRepository.findById(accountId);
+
+        if (accountOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        accountOptional = accountRepository.findByEmail(account.getEmail());
+
+        if (accountOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        account.setFirstName(account.getFirstName());
+        account.setLastName(account.getLastName());
+        account.setEmail(account.getEmail());
+        account.setPassword(account.getPassword());
+
+        account = accountRepository.save(account);
+
+        AccountDto accountDto = buildAccountDtoFromAccount(account);
+
+        return ResponseEntity.ok().body(accountDto);
+    }
+
+    private static AccountDto buildAccountDtoFromAccount(Account account) {
+        return new AccountDto(
+                account.getId(),
+                account.getFirstName(),
+                account.getLastName(),
+                account.getEmail()
+        );
+    }
 }
