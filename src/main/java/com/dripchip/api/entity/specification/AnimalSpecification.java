@@ -48,7 +48,7 @@ public class AnimalSpecification {
                 if (chipperId == null) {
                     return null;
                 }
-                return criteriaBuilder.equal(root.get("chipperId"), chipperId);
+                return criteriaBuilder.equal(root.get("chipper").get("id"), chipperId);
             }
         };
     }
@@ -60,7 +60,7 @@ public class AnimalSpecification {
                 if (chippingLocationId == null) {
                     return null;
                 }
-                return criteriaBuilder.equal(root.get("chippingLocationId"), chippingLocationId);
+                return criteriaBuilder.equal(root.get("chippingLocation").get("id"), chippingLocationId);
             }
         };
     }
