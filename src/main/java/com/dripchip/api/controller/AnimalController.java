@@ -28,7 +28,7 @@ public class AnimalController {
     }
 
     @GetMapping("/animals/{animalId}")
-    public ResponseEntity<Animal> getAnimal(@PathVariable Long animalId) {
+    public ResponseEntity<Animal> getAnimalById(@PathVariable Long animalId) {
         if (animalId == null || animalId <= 0) {
             return ResponseEntity.badRequest().build();
         }

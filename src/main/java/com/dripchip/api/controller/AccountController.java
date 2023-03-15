@@ -25,7 +25,6 @@ public class AccountController {
 
     @GetMapping("/accounts/{accountId}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
-
         if (accountId <= 0) {
             return ResponseEntity.badRequest().build();
         }
