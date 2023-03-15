@@ -5,7 +5,6 @@ import com.dripchip.api.entity.enums.LifeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -23,5 +22,5 @@ public class AnimalDto {
     private Long chipperId;
     private Long chippingLocationId;
     private List<Long> visitedLocations;
-    private LocalDateTime deathDateTime;
+    private OffsetDateTime deathDateTime;
 }
