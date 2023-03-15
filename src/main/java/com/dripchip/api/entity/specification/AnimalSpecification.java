@@ -33,7 +33,10 @@ public class AnimalSpecification {
                     return criteriaBuilder.lessThanOrEqualTo(root.get("chippingDateTime"), endDate);
                 }
 
-                return criteriaBuilder.between(root.get("chippingDateTime"), startDateString, endDateString);
+                LocalDateTime startDate = LocalDateTime.parse(startDateString, formatter);
+                LocalDateTime endDate = LocalDateTime.parse(endDateString, formatter);
+
+                return criteriaBuilder.between(root.get("chippingDateTime"), startDate, endDate);
             }
         };
     }
