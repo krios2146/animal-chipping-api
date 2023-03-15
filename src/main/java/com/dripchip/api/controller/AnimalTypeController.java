@@ -1,11 +1,12 @@
 package com.dripchip.api.controller;
 
 import com.dripchip.api.entity.AnimalType;
+import com.dripchip.api.entity.dto.AnimalTypeDto;
 import com.dripchip.api.repository.AnimalTypeRepository;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -28,7 +29,21 @@ public class AnimalTypeController {
         if (animalType.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        
+
         return ResponseEntity.ok().body(animalType.get());
+    }
+
+    @PostMapping("/animals/types")
+    public ResponseEntity<AnimalType> createAnimalType(@Valid @RequestBody AnimalTypeDto animalTypeDto) {
+        if (animalTypeRepository.findByType(animalTypeDto.getType()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        AnimalType animalType = new AnimalType();
+        animalType.setType(animalTypeDto.getType());
+
+        AnimalType savedAnimalType = animalTypeRepository.save(animalType);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAnimalType);
     }
 }
