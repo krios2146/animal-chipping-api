@@ -6,6 +6,7 @@ import com.dripchip.api.entity.dto.AnimalVisitedLocationDto;
 import com.dripchip.api.entity.enums.Gender;
 import com.dripchip.api.entity.enums.LifeStatus;
 import com.dripchip.api.entity.request.AnimalRequest;
+import com.dripchip.api.entity.request.PostAnimalRequest;
 import com.dripchip.api.entity.specification.AnimalSpecification;
 import com.dripchip.api.repository.AccountRepository;
 import com.dripchip.api.repository.AnimalRepository;
@@ -106,7 +107,7 @@ public class AnimalController {
     }
 
     @PostMapping("/animals")
-    public ResponseEntity<AnimalDto> createAnimal(@Valid @RequestBody AnimalRequest animalRequest) {
+    public ResponseEntity<AnimalDto> createAnimal(@Valid @RequestBody PostAnimalRequest animalRequest) {
         if (animalRequest.getAnimalTypes().size() == 0) {
             return ResponseEntity.badRequest().build();
         }
@@ -118,15 +119,7 @@ public class AnimalController {
             return ResponseEntity.badRequest().build();
         }
 
-        if (animalRequest.getWeight() <= 0 || animalRequest.getLength() <= 0 || animalRequest.getHeight() <= 0) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        if (!isValidGender(animalRequest.getGender())) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        if (animalRequest.getChipperId() <= 0 || animalRequest.getChippingLocationId() <= 0) {
+        if (!isValidRequest(animalRequest)) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -269,4 +262,18 @@ public class AnimalController {
         );
     }
 
+    private static boolean isValidRequest(AnimalRequest animalRequest) {
+        if (animalRequest.getWeight() <= 0 || animalRequest.getLength() <= 0 || animalRequest.getHeight() <= 0) {
+            return false;
+        }
+
+        if (!isValidGender(animalRequest.getGender())) {
+            return false;
+        }
+
+        if (animalRequest.getChipperId() <= 0 || animalRequest.getChippingLocationId() <= 0) {
+            return false;
+        }
+        return true;
+    }
 }
