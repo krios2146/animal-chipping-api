@@ -1,10 +1,8 @@
 package com.dripchip.api.controller;
 
-import com.dripchip.api.entity.Account;
-import com.dripchip.api.entity.Animal;
-import com.dripchip.api.entity.AnimalType;
-import com.dripchip.api.entity.Location;
+import com.dripchip.api.entity.*;
 import com.dripchip.api.entity.dto.AnimalDto;
+import com.dripchip.api.entity.dto.AnimalVisitedLocationDto;
 import com.dripchip.api.entity.enums.Gender;
 import com.dripchip.api.entity.enums.LifeStatus;
 import com.dripchip.api.entity.request.AnimalRequest;
@@ -158,6 +156,51 @@ public class AnimalController {
         return ResponseEntity.status(HttpStatus.CREATED).body(animalDto);
     }
 
+    @PostMapping("/animals/{animalId}/locations/{pointId}")
+    public ResponseEntity<AnimalVisitedLocationDto> addAnimalVisitedLocation(@PathVariable Long animalId,
+                                                                             @PathVariable(name = "pointId") Long locationId) {
+        if (animalId == null || animalId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (locationId == null || locationId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<Location> locationOptional = locationRepository.findById(locationId);
+
+        if (animalOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (locationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        Location location = locationOptional.get();
+
+        if (animal.getLifeStatus().equals(LifeStatus.DEAD)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (animal.getChippingLocation().equals(location)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        AnimalVisitedLocation animalVisitedLocation = new AnimalVisitedLocation(
+                LocalDateTime.now(),
+                location,
+                animal
+        );
+
+        AnimalVisitedLocationDto animalVisitedLocationDto = getDtoFrom(animalVisitedLocation);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(animalVisitedLocationDto);
+
+    }
+
     private static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
@@ -200,6 +243,14 @@ public class AnimalController {
                 animal.getChippingLocation().getId(),
                 new ArrayList<>(),
                 null
+        );
+    }
+
+    private static AnimalVisitedLocationDto getDtoFrom(AnimalVisitedLocation visitedLocation) {
+        return new AnimalVisitedLocationDto(
+                visitedLocation.getId(),
+                OffsetDateTime.of(visitedLocation.getDateTimeOfVisitLocationPoint(), ZoneOffset.UTC),
+                visitedLocation.getLocation().getId()
         );
     }
 
