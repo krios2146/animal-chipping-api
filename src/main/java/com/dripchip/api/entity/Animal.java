@@ -43,7 +43,7 @@ public class Animal {
     private Location chippingLocation;
 
     @OneToMany(mappedBy = "animal")
-    private List<AnimalVisitedLocation> animalVisitedLocations;
+    private List<AnimalVisitedLocation> visitedLocations;
 
     private LocalDateTime deathDateTime;
 }
