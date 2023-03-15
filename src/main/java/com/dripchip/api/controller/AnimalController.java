@@ -54,7 +54,8 @@ public class AnimalController {
             return ResponseEntity.badRequest().build();
         }
 
-        if (chipperId <= 0 || chippingLocationId <= 0) {
+        if (chipperId != null && chipperId <= 0 ||
+                chippingLocationId != null && chippingLocationId <= 0) {
             return ResponseEntity.badRequest().build();
         }
 
