@@ -41,6 +41,41 @@ public class LocationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedLocation);
     }
 
+    @PutMapping("/locations/{pointId}")
+    public ResponseEntity<Location> updateLocation(@PathVariable("pointId") Long pointId,
+                                                   @Valid @RequestBody Location locationFromRequest) {
+        if (pointId == null || pointId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (!isValidCoordinates(locationFromRequest.getLatitude(), locationFromRequest.getLongitude())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Location> locationOptional = locationRepository.findByLatitudeAndLongitude(
+                locationFromRequest.getLatitude(),
+                locationFromRequest.getLongitude());
+
+        if (locationOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        locationOptional = locationRepository.findById(pointId);
+
+        if (locationOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Location locationToUpdate = locationOptional.get();
+
+        locationToUpdate.setLatitude(locationFromRequest.getLatitude());
+        locationToUpdate.setLongitude(locationFromRequest.getLongitude());
+
+        Location updatedLocation = locationRepository.save(locationToUpdate);
+
+        return ResponseEntity.ok().body(updatedLocation);
+    }
+
     private static boolean isValidCoordinates(Double lat, Double lon) {
         if (lat < -90 || lat > 90) {
             return false;
