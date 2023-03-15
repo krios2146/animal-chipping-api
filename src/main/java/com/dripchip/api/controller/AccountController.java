@@ -26,7 +26,7 @@ public class AccountController {
     @GetMapping("/accounts/{accountId}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
 
-        if (accountId < 1) {
+        if (accountId <= 0) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -48,7 +48,7 @@ public class AccountController {
             @RequestParam(defaultValue = "10") int size
     ) {
 
-        if (size < 1 || from < 0) {
+        if (size <= 0 || from < 0) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -57,13 +57,13 @@ public class AccountController {
                 .and(AccountSpecifications.emailContainsIgnoreCase(email))
         );
 
-        Page<Account> page = accountRepository.findAll(spec, PageRequest.of(from, size));
+        Page<Account> accounts = accountRepository.findAll(spec, PageRequest.of(from, size));
 
-        if (page.isEmpty()) {
+        if (accounts.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(page.getContent());
+        return ResponseEntity.ok().body(accounts.getContent());
     }
 
 }
