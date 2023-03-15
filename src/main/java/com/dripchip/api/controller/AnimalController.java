@@ -1,30 +1,41 @@
 package com.dripchip.api.controller;
 
-import com.dripchip.api.entity.Animal;
+import com.dripchip.api.entity.*;
+import com.dripchip.api.entity.dto.AnimalDto;
 import com.dripchip.api.entity.enums.Gender;
 import com.dripchip.api.entity.enums.LifeStatus;
 import com.dripchip.api.entity.specification.AnimalSpecification;
+import com.dripchip.api.repository.AccountRepository;
 import com.dripchip.api.repository.AnimalRepository;
+import com.dripchip.api.repository.AnimalTypeRepository;
+import com.dripchip.api.repository.LocationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class AnimalController {
     private final AnimalRepository animalRepository;
+    private final AnimalTypeRepository animalTypeRepository;
+    private final AccountRepository accountRepository;
+    private final LocationRepository locationRepository;
 
-    public AnimalController(AnimalRepository animalRepository) {
+    public AnimalController(AnimalRepository animalRepository, AnimalTypeRepository animalTypeRepository, AccountRepository accountRepository, LocationRepository locationRepository) {
         this.animalRepository = animalRepository;
+        this.animalTypeRepository = animalTypeRepository;
+        this.accountRepository = accountRepository;
+        this.locationRepository = locationRepository;
     }
 
     @GetMapping("/animals/{animalId}")
@@ -82,6 +93,63 @@ public class AnimalController {
         }
 
         return ResponseEntity.ok().body(animals.getContent());
+    }
+
+    @PostMapping
+    public ResponseEntity<Animal> createAnimal(@RequestBody AnimalDto animalRequest) {
+        if (animalRequest.getAnimalTypesId().size() == 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (animalRequest.getWeight() <= 0 || animalRequest.getLength() <= 0 || animalRequest.getHeight() <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (!isValidGender(animalRequest.getGender())) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (animalRequest.getChipperId() <= 0 || animalRequest.getChippingLocationId() <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        List<AnimalType> animalTypeList = animalTypeRepository.findAllById(animalRequest.getAnimalTypesId());
+
+        if (animalTypeList.size() != animalRequest.getAnimalTypesId().size()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Set<AnimalType> animalTypeSet = new HashSet<>(animalTypeList);
+
+        Optional<Account> chipperOptional = accountRepository.findById(animalRequest.getChipperId());
+        Optional<Location> locationOptional = locationRepository.findById(animalRequest.getChippingLocationId());
+
+        if (chipperOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (locationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Account chipper = chipperOptional.get();
+        Location chippingLocation = locationOptional.get();
+
+        Animal animal = new Animal();
+        animal.setAnimalTypes(animalTypeSet);
+        animal.setWeight(animalRequest.getWeight());
+        animal.setLength(animalRequest.getLength());
+        animal.setHeight(animalRequest.getHeight());
+        animal.setGender(Gender.valueOf(animalRequest.getGender()));
+        animal.setLifeStatus(LifeStatus.ALIVE);
+        animal.setChippingDateTime(LocalDateTime.now());
+        animal.setChipper(chipper);
+        animal.setChippingLocation(chippingLocation);
+        animal.setVisitedLocations(List.of(new AnimalVisitedLocation(LocalDateTime.now(), chippingLocation, animal)));
+
+        Animal savedAnimal = animalRepository.save(animal);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAnimal);
     }
 
     private static boolean isValidDate(String date) {
