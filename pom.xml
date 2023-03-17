@@ -8,11 +8,11 @@
         <version>3.0.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.drip-chip</groupId>
+    <groupId>com.animalchipping</groupId>
     <artifactId>api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>api</name>
-    <description>RESTful API for the "Drip-Chip" company</description>
+    <name>Animal chipping API</name>
+    <description>A REST API service for tracking chipped animals their movements and life cycles</description>
     <properties>
         <java.version>17</java.version>
     </properties>
