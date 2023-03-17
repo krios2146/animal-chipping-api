@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/accounts")
 public class AccountController {
     private final AccountRepository accountRepository;
 
@@ -23,7 +24,7 @@ public class AccountController {
         this.accountRepository = accountRepository;
     }
 
-    @GetMapping("/accounts/{accountId}")
+    @GetMapping("/{accountId}")
     public ResponseEntity<AccountDto> getAccountById(@PathVariable Long accountId) {
         if (accountId <= 0) {
             return ResponseEntity.badRequest().build();
@@ -36,19 +37,19 @@ public class AccountController {
         }
 
         Account account = accountOptional.get();
-        AccountDto accountDto = buildAccountDtoFromAccount(account);
+        AccountDto accountDto = getDtoFrom(account);
 
         return ResponseEntity.ok().body(accountDto);
     }
 
-    @GetMapping("/accounts/search")
+    @GetMapping("/search")
     public ResponseEntity<List<AccountDto>> searchAccounts(
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String email,
             @RequestParam(defaultValue = "0") int from,
-            @RequestParam(defaultValue = "10") int size
-    ) {
+            @RequestParam(defaultValue = "10") int size) {
+
         if (size <= 0 || from < 0) {
             return ResponseEntity.badRequest().build();
         }
@@ -65,32 +66,16 @@ public class AccountController {
         }
 
         List<AccountDto> accountDtoList = accounts.stream()
-                .map(AccountController::buildAccountDtoFromAccount)
+                .map(AccountController::getDtoFrom)
                 .toList();
 
         return ResponseEntity.ok().body(accountDtoList);
     }
 
-    @PostMapping("/registration")
-    public ResponseEntity<AccountDto> registerAccount(@Valid @RequestBody Account account) {
-        Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
+    @PutMapping("/{accountId}")
+    public ResponseEntity<AccountDto> updateAccount(@PathVariable("accountId") Long accountId,
+                                                    @Valid @RequestBody Account accountFromRequest) {
 
-        if (accountOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
-        account = accountRepository.save(account);
-
-        AccountDto accountDto = buildAccountDtoFromAccount(account);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(accountDto);
-    }
-
-    @PutMapping("/accounts/{accountId}")
-    public ResponseEntity<AccountDto> updateAccount(
-            @PathVariable("accountId") Long accountId,
-            @Valid @RequestBody Account accountFromRequest
-    ) {
         if (accountId == null || accountId <= 0) {
             return ResponseEntity.badRequest().build();
         }
@@ -118,12 +103,12 @@ public class AccountController {
 
         Account updatedAccount = accountRepository.save(accountToUpdate);
 
-        AccountDto accountDto = buildAccountDtoFromAccount(updatedAccount);
+        AccountDto accountDto = getDtoFrom(updatedAccount);
 
         return ResponseEntity.ok().body(accountDto);
     }
 
-    private static AccountDto buildAccountDtoFromAccount(Account account) {
+    private static AccountDto getDtoFrom(Account account) {
         return new AccountDto(
                 account.getId(),
                 account.getFirstName(),
