@@ -45,4 +45,29 @@ public class AnimalTypeController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAnimalType);
     }
+
+    @PutMapping("{typeId}")
+    // TODO: Use an `AnimalTypeRequest` for the request and an `AnimalTypeDto` for the response
+    public ResponseEntity<AnimalType> updateAnimalType(@PathVariable Long typeId, @Valid @RequestBody AnimalTypeDto animalTypeDto) {
+        if (typeId == null || typeId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<AnimalType> animalTypeOptional = animalTypeRepository.findById(typeId);
+
+        if (animalTypeOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (animalTypeRepository.findByType(animalTypeDto.getType()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        AnimalType animalType = animalTypeOptional.get();
+        animalType.setType(animalTypeDto.getType());
+
+        AnimalType updatedAnimalType = animalTypeRepository.save(animalType);
+
+        return ResponseEntity.ok().body(updatedAnimalType);
+    }
 }
