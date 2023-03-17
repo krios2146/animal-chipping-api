@@ -4,6 +4,7 @@ import com.animalchipping.api.entity.Account;
 import com.animalchipping.api.entity.dto.AccountDto;
 import com.animalchipping.api.entity.specification.AccountSpecifications;
 import com.animalchipping.api.repository.AccountRepository;
+import com.animalchipping.api.repository.AnimalRepository;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +20,12 @@ import java.util.Optional;
 @RequestMapping("/accounts")
 public class AccountController {
     private final AccountRepository accountRepository;
+    private final AnimalRepository animalRepository;
 
-    public AccountController(AccountRepository accountRepository) {
+    public AccountController(AccountRepository accountRepository,
+                             AnimalRepository animalRepository) {
         this.accountRepository = accountRepository;
+        this.animalRepository = animalRepository;
     }
 
     @GetMapping("/{accountId}")
@@ -106,6 +110,29 @@ public class AccountController {
         AccountDto accountDto = getDtoFrom(updatedAccount);
 
         return ResponseEntity.ok().body(accountDto);
+    }
+
+    @DeleteMapping("/{accountId}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Long accountId) {
+        if (accountId == null || accountId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Account> accountOptional = accountRepository.findById(accountId);
+
+        if (accountOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Account account = accountOptional.get();
+
+        if (animalRepository.existsByChipper(account)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        accountRepository.delete(account);
+
+        return ResponseEntity.ok().build();
     }
 
     private static AccountDto getDtoFrom(Account account) {
