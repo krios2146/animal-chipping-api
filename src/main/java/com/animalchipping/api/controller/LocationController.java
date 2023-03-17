@@ -1,6 +1,7 @@
 package com.animalchipping.api.controller;
 
 import com.animalchipping.api.entity.Location;
+import com.animalchipping.api.repository.AnimalRepository;
 import com.animalchipping.api.repository.LocationRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,12 @@ import java.util.Optional;
 @RequestMapping("/locations")
 public class LocationController {
     private final LocationRepository locationRepository;
+    private final AnimalRepository animalRepository;
 
-    public LocationController(LocationRepository locationRepository) {
+    public LocationController(LocationRepository locationRepository,
+                              AnimalRepository animalRepository) {
         this.locationRepository = locationRepository;
+        this.animalRepository = animalRepository;
     }
 
     @GetMapping("/{locationId}")
@@ -76,6 +80,29 @@ public class LocationController {
         Location updatedLocation = locationRepository.save(locationToUpdate);
 
         return ResponseEntity.ok().body(updatedLocation);
+    }
+
+    @DeleteMapping("{locationId}")
+    public ResponseEntity<?> deleteLocation(@PathVariable Long locationId) {
+        if (locationId == null || locationId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Location> locationOptional = locationRepository.findById(locationId);
+
+        if (locationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Location location = locationOptional.get();
+
+        if (animalRepository.existsByChippingLocation(location)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        locationRepository.delete(location);
+
+        return ResponseEntity.ok().build();
     }
 
     private static boolean isValidCoordinates(Double lat, Double lon) {
