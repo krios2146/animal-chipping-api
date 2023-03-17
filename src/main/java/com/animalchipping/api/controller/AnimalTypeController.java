@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/animals/types")
 public class AnimalTypeController {
     private final AnimalTypeRepository animalTypeRepository;
 
@@ -18,7 +19,7 @@ public class AnimalTypeController {
         this.animalTypeRepository = animalTypeRepository;
     }
 
-    @GetMapping("/animals/types/{typeId}")
+    @GetMapping("/{typeId}")
     public ResponseEntity<AnimalType> getAnimalTypeById(@PathVariable Long typeId) {
         if (typeId == null || typeId <= 0) {
             return ResponseEntity.badRequest().build();
@@ -26,14 +27,12 @@ public class AnimalTypeController {
 
         Optional<AnimalType> animalType = animalTypeRepository.findById(typeId);
 
-        if (animalType.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok().body(animalType.get());
+        return animalType.map(type -> ResponseEntity.ok().body(type))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/animals/types")
+    @PostMapping
+    // TODO: Use an `AnimalTypeRequest` for the request and an `AnimalTypeDto` for the response
     public ResponseEntity<AnimalType> createAnimalType(@Valid @RequestBody AnimalTypeDto animalTypeDto) {
         if (animalTypeRepository.findByType(animalTypeDto.getType()).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
