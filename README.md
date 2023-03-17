@@ -1,5 +1,41 @@
 # Animal Chipping API
 
+## Table of content
+
+1. [Entities](#entities)
+2. [API Declarations](#api-declarations)  
+   2.1 [User authentication](#user-authentication)  
+      2.1.1 [Registration](#registration)  
+   2.2 [Accounts](#accounts)  
+      2.2.1 [Account info by ID](#account-info-by-id)  
+      2.2.2 [Search account by parameters](#search-account-by-parameters)  
+      2.2.3 [Update user account details](#update-user-account-details)  
+      2.2.4 [Delete user account](#delete-user-account)  
+   2.3 [Locations](#locations)  
+      2.3.1 [Locations info by ID](#location-info-by-id)  
+      2.3.2 [Add location](#add-location)  
+      2.3.3 [Update location details](#update-location-details)  
+      2.3.4 [Delete location](#delete-location)  
+   2.4 [Animal types](#animal-types)  
+      2.4.1 [Animal type info by ID](#animal-type-info-by-id)  
+      2.4.2 [Add animal type](#add-animal-type)  
+      2.4.3 [Update animal type details](#update-animal-type-details)  
+      2.4.4 [Delete animal type](#delete-animal-type)  
+   2.5 [Animals](#animals)  
+      2.5.1 [Animal info by ID](#animal-info-by-id)  
+      2.5.2 [Search animal by parameters](#search-animal-by-parameters)  
+      2.5.3 [Add animal](#add-animal)  
+      2.5.4 [Update animal details](#update-animal-details)  
+      2.5.5 [Delete animal](#delete-animal)  
+      2.5.6 [Add animal type to the animal](#add-animal-type-to-the-animal)  
+      2.5.7 [Update animal type of the animal](#update-animal-type-of-the-animal)  
+      2.5.8 [Delete animal type of the animal](#delete-animal-type-of-the-animal)  
+   2.6 [Animal Visited Locations](#animal-visited-locations)  
+      2.6.1 [Visited locations info](#visited-locations-info)  
+      2.6.2 [Add visited location to an animal](#add-visited-location-to-an-animal)  
+      2.6.3 [Update visited location of an animal](#update-visited-location-of-an-animal)  
+      2.6.4 [Delete visited location of an animal](#delete-visited-location-of-an-animal)
+
 ## Entities
 
 - Account
@@ -313,7 +349,7 @@ Response
 }
 ```
 
-### Animal
+### Animals
 
 #### Animal info by ID
 
@@ -665,9 +701,9 @@ Response
 ]
 ```
 
-#### Update visited location of an animal
+#### Delete visited location of an animal
 
-**PUT** ~ /animals/{animalId}/locations/{visitedLocationId}
+**DELETE** ~ /animals/{animalId}/locations/{visitedLocationId}
 
 Request
 
