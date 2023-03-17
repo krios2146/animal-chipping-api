@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/locations")
 public class LocationController {
     private final LocationRepository locationRepository;
 
@@ -17,20 +18,20 @@ public class LocationController {
         this.locationRepository = locationRepository;
     }
 
-    @GetMapping("/locations/{pointId}")
-    public ResponseEntity<Location> getLocationById(@PathVariable("pointId") Long pointId) {
-        if (pointId == null || pointId <= 0) {
+    @GetMapping("/{locationId}")
+    public ResponseEntity<Location> getLocationById(@PathVariable("locationId") Long locationId) {
+        if (locationId == null || locationId <= 0) {
             return ResponseEntity.badRequest().build();
         }
 
-        Optional<Location> locationOptional = locationRepository.findById(pointId);
+        Optional<Location> locationOptional = locationRepository.findById(locationId);
 
         return locationOptional.map(location -> ResponseEntity.ok().body(location))
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 
-    @PostMapping("/locations")
+    @PostMapping
     public ResponseEntity<Location> createLocation(@Valid @RequestBody Location location) {
         if (!isValidCoordinates(location.getLatitude(), location.getLongitude())) {
             return ResponseEntity.badRequest().build();
@@ -41,10 +42,10 @@ public class LocationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedLocation);
     }
 
-    @PutMapping("/locations/{pointId}")
-    public ResponseEntity<Location> updateLocation(@PathVariable("pointId") Long pointId,
+    @PutMapping("/{locationId}")
+    public ResponseEntity<Location> updateLocation(@PathVariable("locationId") Long locationId,
                                                    @Valid @RequestBody Location locationFromRequest) {
-        if (pointId == null || pointId <= 0) {
+        if (locationId == null || locationId <= 0) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -52,18 +53,19 @@ public class LocationController {
             return ResponseEntity.badRequest().build();
         }
 
-        Optional<Location> locationOptional = locationRepository.findByLatitudeAndLongitude(
-                locationFromRequest.getLatitude(),
-                locationFromRequest.getLongitude());
-
-        if (locationOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
-        locationOptional = locationRepository.findById(pointId);
+        Optional<Location> locationOptional = locationRepository.findById(locationId);
 
         if (locationOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        locationOptional = locationRepository.findByLatitudeAndLongitude(
+                locationFromRequest.getLatitude(),
+                locationFromRequest.getLongitude()
+        );
+
+        if (locationOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
         Location locationToUpdate = locationOptional.get();
