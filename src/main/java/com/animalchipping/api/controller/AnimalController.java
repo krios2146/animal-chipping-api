@@ -271,7 +271,9 @@ public class AnimalController {
 
         animalRepository.save(animal);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        AnimalDto animalDto = getDtoFrom(animal);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(animalDto);
     }
 
     private static boolean isValidDate(String date) {
