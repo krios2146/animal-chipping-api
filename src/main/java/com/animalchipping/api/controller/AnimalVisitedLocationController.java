@@ -8,6 +8,7 @@ import com.animalchipping.api.entity.enums.LifeStatus;
 import com.animalchipping.api.entity.specification.AnimalVisitedLocationSpecification;
 import com.animalchipping.api.repository.AnimalRepository;
 import com.animalchipping.api.repository.AnimalVisitedLocationRepository;
+import com.animalchipping.api.repository.LocationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -29,10 +30,13 @@ import java.util.Optional;
 public class AnimalVisitedLocationController {
     private final AnimalVisitedLocationRepository animalVisitedLocationRepository;
     private final AnimalRepository animalRepository;
+    private final LocationRepository locationRepository;
 
-    public AnimalVisitedLocationController(AnimalVisitedLocationRepository animalVisitedLocationRepository, AnimalRepository animalRepository) {
+    public AnimalVisitedLocationController(AnimalVisitedLocationRepository animalVisitedLocationRepository, AnimalRepository animalRepository,
+                                           LocationRepository locationRepository) {
         this.animalVisitedLocationRepository = animalVisitedLocationRepository;
         this.animalRepository = animalRepository;
+        this.locationRepository = locationRepository;
     }
 
     @GetMapping("/{animalId}/locations")
@@ -81,7 +85,7 @@ public class AnimalVisitedLocationController {
         }
 
         Optional<Animal> animalOptional = animalRepository.findById(animalId);
-        Optional<AnimalVisitedLocation> locationOptional = animalVisitedLocationRepository.findById(locationId);
+        Optional<Location> locationOptional = locationRepository.findById(locationId);
 
         if (animalOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -92,7 +96,7 @@ public class AnimalVisitedLocationController {
         }
 
         Animal animal = animalOptional.get();
-        Location location = locationOptional.get().getLocation();
+        Location location = locationOptional.get();
 
         if (animal.getLifeStatus().equals(LifeStatus.DEAD)) {
             return ResponseEntity.badRequest().build();
