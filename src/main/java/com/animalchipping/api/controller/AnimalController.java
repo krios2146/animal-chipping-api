@@ -316,6 +316,40 @@ public class AnimalController {
         return ResponseEntity.ok().body(animalDto);
     }
 
+    @DeleteMapping("/{animalId}/types/{typeId}")
+    public ResponseEntity<AnimalDto> deleteTypeOfAnimal(@PathVariable Long animalId, @PathVariable Long typeId) {
+        if (animalId == null || animalId <= 0 ||
+                typeId == null || typeId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<AnimalType> typeOptional = animalTypeRepository.findById(typeId);
+
+        if (animalOptional.isEmpty() || typeOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        AnimalType animalType = typeOptional.get();
+
+        if (!animal.getAnimalTypes().contains(animalType)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (animal.getAnimalTypes().size() == 1 && animal.getAnimalTypes().contains(animalType)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Set<AnimalType> animalTypes = animal.getAnimalTypes();
+        animalTypes.remove(animalType);
+        animal.setAnimalTypes(animalTypes);
+
+        AnimalDto animalDto = getDtoFrom(animal);
+
+        return ResponseEntity.ok().body(animalDto);
+    }
+
     private static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
