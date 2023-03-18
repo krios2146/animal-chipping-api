@@ -117,6 +117,50 @@ public class AnimalVisitedLocationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(animalVisitedLocationDto);
     }
 
+    @PutMapping("/{animalId}/locations")
+    public ResponseEntity<AnimalVisitedLocationDto> updateVisitedLocation(@PathVariable Long animalId,
+                                                                          @RequestParam Long visitedLocationId,
+                                                                          @RequestParam Long locationId) {
+        if (animalId == null || animalId <= 0 ||
+                visitedLocationId == null || visitedLocationId <= 0 ||
+                locationId == null || locationId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<Location> locationOptional = locationRepository.findById(locationId);
+        Optional<AnimalVisitedLocation> visitedLocationOptional = animalVisitedLocationRepository.findById(visitedLocationId);
+
+        if (animalOptional.isEmpty() || locationOptional.isEmpty() || visitedLocationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        AnimalVisitedLocation animalVisitedLocation = visitedLocationOptional.get();
+        Location location = locationOptional.get();
+
+        if (!animal.getVisitedLocations().contains(animalVisitedLocation)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (animalVisitedLocation.getLocation().equals(location)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        List<AnimalVisitedLocation> visitedLocations = animal.getVisitedLocations();
+        visitedLocations.remove(animalVisitedLocation);
+        visitedLocations.add(new AnimalVisitedLocation(
+                LocalDateTime.now(),
+                location,
+                animal
+        ));
+        animal.setVisitedLocations(visitedLocations);
+
+        AnimalVisitedLocationDto visitedLocationDto = getDtoFrom(animalVisitedLocation);
+
+        return ResponseEntity.ok().body(visitedLocationDto);
+    }
+
     private static AnimalVisitedLocationDto getDtoFrom(AnimalVisitedLocation visitedLocation) {
         return new AnimalVisitedLocationDto(
                 visitedLocation.getId(),
