@@ -219,6 +219,29 @@ public class AnimalController {
         return ResponseEntity.ok().body(animalDto);
     }
 
+    @DeleteMapping("/{animalId}")
+    public ResponseEntity<?> deleteAnimal(@PathVariable Long animalId) {
+        if (animalId == null || animalId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+
+        if (animalOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+
+        if (!animal.getVisitedLocations().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        animalRepository.delete(animal);
+
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{animalId}/locations/{locationId}")
     public ResponseEntity<AnimalVisitedLocationDto> addAnimalVisitedLocation(@PathVariable Long animalId,
                                                                              @PathVariable Long locationId) {
