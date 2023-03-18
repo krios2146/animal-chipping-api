@@ -29,6 +29,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 @RestController
+@RequestMapping("/animals")
 public class AnimalController {
     private final AnimalRepository animalRepository;
     private final AnimalTypeRepository animalTypeRepository;
@@ -42,7 +43,7 @@ public class AnimalController {
         this.locationRepository = locationRepository;
     }
 
-    @GetMapping("/animals/{animalId}")
+    @GetMapping("/{animalId}")
     public ResponseEntity<AnimalDto> getAnimalById(@PathVariable Long animalId) {
         if (animalId == null || animalId <= 0) {
             return ResponseEntity.badRequest().build();
@@ -60,7 +61,7 @@ public class AnimalController {
         return ResponseEntity.ok().body(animalDto);
     }
 
-    @GetMapping("animals/search")
+    @GetMapping("/search")
     public ResponseEntity<List<AnimalDto>> searchAnimals(
             @RequestParam(required = false) String startDateTimeParameter,
             @RequestParam(required = false) String endDateTimeParameter,
@@ -107,7 +108,7 @@ public class AnimalController {
         return ResponseEntity.ok().body(animalDtoList);
     }
 
-    @PostMapping("/animals")
+    @PostMapping
     public ResponseEntity<AnimalDto> createAnimal(@Valid @RequestBody PostAnimalRequest animalRequest) {
         if (animalRequest.getAnimalTypes().size() == 0) {
             return ResponseEntity.badRequest().build();
@@ -165,7 +166,7 @@ public class AnimalController {
         return ResponseEntity.status(HttpStatus.CREATED).body(animalDto);
     }
 
-    @PutMapping("/animals/{animalId}")
+    @PutMapping("/{animalId}")
     public ResponseEntity<AnimalDto> updateAnimal(@PathVariable Long animalId,
                                                   @Valid @RequestBody PutAnimalRequest animalRequest) {
         if (animalId == null || animalId <= 0) {
@@ -218,9 +219,9 @@ public class AnimalController {
         return ResponseEntity.ok().body(animalDto);
     }
 
-    @PostMapping("/animals/{animalId}/locations/{pointId}")
+    @PostMapping("/{animalId}/locations/{locationId}")
     public ResponseEntity<AnimalVisitedLocationDto> addAnimalVisitedLocation(@PathVariable Long animalId,
-                                                                             @PathVariable(name = "pointId") Long locationId) {
+                                                                             @PathVariable Long locationId) {
         if (animalId == null || animalId <= 0) {
             return ResponseEntity.badRequest().build();
         }
