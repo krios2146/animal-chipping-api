@@ -1,30 +1,41 @@
 package com.animalchipping.api.controller;
 
+import com.animalchipping.api.entity.Animal;
 import com.animalchipping.api.entity.AnimalVisitedLocation;
+import com.animalchipping.api.entity.Location;
+import com.animalchipping.api.entity.dto.AnimalVisitedLocationDto;
+import com.animalchipping.api.entity.enums.LifeStatus;
 import com.animalchipping.api.entity.specification.AnimalVisitedLocationSpecification;
+import com.animalchipping.api.repository.AnimalRepository;
 import com.animalchipping.api.repository.AnimalVisitedLocationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
+@RequestMapping("/animals")
 public class AnimalVisitedLocationController {
     private final AnimalVisitedLocationRepository animalVisitedLocationRepository;
+    private final AnimalRepository animalRepository;
 
-    public AnimalVisitedLocationController(AnimalVisitedLocationRepository animalVisitedLocationRepository) {
+    public AnimalVisitedLocationController(AnimalVisitedLocationRepository animalVisitedLocationRepository, AnimalRepository animalRepository) {
         this.animalVisitedLocationRepository = animalVisitedLocationRepository;
+        this.animalRepository = animalRepository;
     }
 
-    @GetMapping("/animals/{animalId}/locations")
+    @GetMapping("/{animalId}/locations")
     public ResponseEntity<List<AnimalVisitedLocation>> getAnimalLocationPoints(
             @PathVariable Long animalId,
             @RequestParam(required = false) String startDateTime,
@@ -56,6 +67,58 @@ public class AnimalVisitedLocationController {
         }
 
         return ResponseEntity.ok().body(visitedLocations.getContent());
+    }
+
+    @PostMapping("/{animalId}/locations/{locationId}")
+    public ResponseEntity<AnimalVisitedLocationDto> addAnimalVisitedLocation(@PathVariable Long animalId,
+                                                                             @PathVariable Long locationId) {
+        if (animalId == null || animalId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (locationId == null || locationId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<AnimalVisitedLocation> locationOptional = animalVisitedLocationRepository.findById(locationId);
+
+        if (animalOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (locationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        Location location = locationOptional.get().getLocation();
+
+        if (animal.getLifeStatus().equals(LifeStatus.DEAD)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (animal.getChippingLocation().equals(location)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        AnimalVisitedLocation animalVisitedLocation = new AnimalVisitedLocation(
+                LocalDateTime.now(),
+                location,
+                animal
+        );
+
+        AnimalVisitedLocationDto animalVisitedLocationDto = getDtoFrom(animalVisitedLocation);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(animalVisitedLocationDto);
+    }
+
+    private static AnimalVisitedLocationDto getDtoFrom(AnimalVisitedLocation visitedLocation) {
+        return new AnimalVisitedLocationDto(
+                visitedLocation.getId(),
+                OffsetDateTime.of(visitedLocation.getDateTimeOfVisitLocationPoint(), ZoneOffset.UTC),
+                visitedLocation.getLocation().getId()
+        );
     }
 
     private static boolean isValidDate(String date) {

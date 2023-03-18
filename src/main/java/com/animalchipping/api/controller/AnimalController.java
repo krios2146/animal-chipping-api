@@ -242,51 +242,6 @@ public class AnimalController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{animalId}/locations/{locationId}")
-    public ResponseEntity<AnimalVisitedLocationDto> addAnimalVisitedLocation(@PathVariable Long animalId,
-                                                                             @PathVariable Long locationId) {
-        if (animalId == null || animalId <= 0) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        if (locationId == null || locationId <= 0) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        Optional<Animal> animalOptional = animalRepository.findById(animalId);
-        Optional<Location> locationOptional = locationRepository.findById(locationId);
-
-        if (animalOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        if (locationOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        Animal animal = animalOptional.get();
-        Location location = locationOptional.get();
-
-        if (animal.getLifeStatus().equals(LifeStatus.DEAD)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        if (animal.getChippingLocation().equals(location)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        AnimalVisitedLocation animalVisitedLocation = new AnimalVisitedLocation(
-                LocalDateTime.now(),
-                location,
-                animal
-        );
-
-        AnimalVisitedLocationDto animalVisitedLocationDto = getDtoFrom(animalVisitedLocation);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(animalVisitedLocationDto);
-
-    }
-
     private static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
