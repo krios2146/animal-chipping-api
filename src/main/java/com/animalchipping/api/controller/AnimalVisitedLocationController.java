@@ -161,6 +161,34 @@ public class AnimalVisitedLocationController {
         return ResponseEntity.ok().body(visitedLocationDto);
     }
 
+    @DeleteMapping("/{animalId}/locations/{visitedLocationId}")
+    public ResponseEntity<?> deleteVisitedLocation(@PathVariable Long animalId, @PathVariable Long visitedLocationId) {
+        if (animalId == null || animalId <= 0 ||
+                visitedLocationId == null || visitedLocationId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<AnimalVisitedLocation> visitedLocationOptional = animalVisitedLocationRepository.findById(visitedLocationId);
+
+        if (animalOptional.isEmpty() || visitedLocationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        AnimalVisitedLocation animalVisitedLocation = visitedLocationOptional.get();
+
+        if (!animal.getVisitedLocations().contains(animalVisitedLocation)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        List<AnimalVisitedLocation> visitedLocations = animal.getVisitedLocations();
+        visitedLocations.remove(animalVisitedLocation);
+        animal.setVisitedLocations(visitedLocations);
+
+        return ResponseEntity.ok().build();
+    }
+
     private static AnimalVisitedLocationDto getDtoFrom(AnimalVisitedLocation visitedLocation) {
         return new AnimalVisitedLocationDto(
                 visitedLocation.getId(),
