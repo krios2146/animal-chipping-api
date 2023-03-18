@@ -242,6 +242,38 @@ public class AnimalController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/{animalId}/types/{typeId}")
+    public ResponseEntity<AnimalDto> addTypeToAnimal(@PathVariable Long animalId, @PathVariable Long typeId) {
+        if (animalId == null || animalId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (typeId == null || typeId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<AnimalType> typeOptional = animalTypeRepository.findById(typeId);
+
+        if (animalOptional.isEmpty() || typeOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        AnimalType animalType = typeOptional.get();
+
+        if (animal.getAnimalTypes().contains(animalType)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        Set<AnimalType> animalTypes = animal.getAnimalTypes();
+        animalTypes.add(animalType);
+        animal.setAnimalTypes(animalTypes);
+
+        animalRepository.save(animal);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     private static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
