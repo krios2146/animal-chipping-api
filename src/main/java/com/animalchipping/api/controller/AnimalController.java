@@ -276,6 +276,46 @@ public class AnimalController {
         return ResponseEntity.status(HttpStatus.CREATED).body(animalDto);
     }
 
+    @PutMapping("/{animalId}/types")
+    public ResponseEntity<AnimalDto> updateTypeOfAnimal(@PathVariable Long animalId,
+                                                        @RequestParam Long oldTypeId,
+                                                        @RequestParam Long newTypeId) {
+        if (animalId == null || animalId <= 0 ||
+                oldTypeId == null || oldTypeId <= 0 ||
+                newTypeId == null || newTypeId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Animal> animalOptional = animalRepository.findById(animalId);
+        Optional<AnimalType> oldAnimalTypeOptional = animalTypeRepository.findById(oldTypeId);
+        Optional<AnimalType> newAnimalTypeOptional = animalTypeRepository.findById(newTypeId);
+
+        if (animalOptional.isEmpty() || oldAnimalTypeOptional.isEmpty() || newAnimalTypeOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Animal animal = animalOptional.get();
+        AnimalType oldAnimalType = oldAnimalTypeOptional.get();
+        AnimalType newAnimalType = newAnimalTypeOptional.get();
+
+        if (!animal.getAnimalTypes().contains(oldAnimalType)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        if (animal.getAnimalTypes().contains(newAnimalType)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        Set<AnimalType> animalTypes = animal.getAnimalTypes();
+        animalTypes.remove(oldAnimalType);
+        animalTypes.add(newAnimalType);
+        animal.setAnimalTypes(animalTypes);
+
+        AnimalDto animalDto = getDtoFrom(animal);
+
+        return ResponseEntity.ok().body(animalDto);
+    }
+
     private static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
