@@ -1,8 +1,10 @@
 package com.animalchipping.api.controller;
 
-import com.animalchipping.api.entity.*;
+import com.animalchipping.api.entity.Account;
+import com.animalchipping.api.entity.Animal;
+import com.animalchipping.api.entity.AnimalType;
+import com.animalchipping.api.entity.Location;
 import com.animalchipping.api.entity.dto.AnimalDto;
-import com.animalchipping.api.entity.dto.AnimalVisitedLocationDto;
 import com.animalchipping.api.entity.enums.Gender;
 import com.animalchipping.api.entity.enums.LifeStatus;
 import com.animalchipping.api.entity.request.AnimalRequest;
@@ -392,14 +394,6 @@ public class AnimalController {
                 animal.getChippingLocation().getId(),
                 new ArrayList<>(),
                 null
-        );
-    }
-
-    private static AnimalVisitedLocationDto getDtoFrom(AnimalVisitedLocation visitedLocation) {
-        return new AnimalVisitedLocationDto(
-                visitedLocation.getId(),
-                OffsetDateTime.of(visitedLocation.getDateTimeOfVisitLocationPoint(), ZoneOffset.UTC),
-                visitedLocation.getLocation().getId()
         );
     }
 
