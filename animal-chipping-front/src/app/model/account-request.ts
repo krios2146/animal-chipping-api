@@ -1,4 +1,4 @@
-export interface AccountRequestCreate {
+export interface AccountRequest {
     firstName: string;
     lastName: string;
     email: string;
