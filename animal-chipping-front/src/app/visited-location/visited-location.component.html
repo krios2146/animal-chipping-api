@@ -1,1 +1,63 @@
-<p>visited-location works!</p>
+<div class="container d-flex">
+    <div class="container border p-4">
+        <h3>Add an Visited location</h3>
+        <form>
+            <div class="form-group">
+                <label for="animalId">Animal ID</label>
+                <input type="number" class="form-control" id="animalId" name="animalId" placeholder="Enter Animal ID">
+            </div>
+            <div class="form-group">
+                <label for="locationId">Location ID</label>
+                <input type="number" class="form-control" id="locationId" name="locationId" placeholder="Enter Visited location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3">
+            <div class="card-header">id</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">dateTimeOfVisitLocationPoint</li>
+                <li class="list-group-item">locationPointId</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Update an Visited location</h3>
+        <form>
+            <div class="form-group">
+                <label for="animalId">Animal ID</label>
+                <input type="number" class="form-control" id="animalId" name="animalId" placeholder="Enter Animal ID">
+            </div>
+            <div class="form-group">
+                <label for="visitedLocationPointId">Visited Location ID</label>
+                <input type="number" class="form-control" id="visitedLocationPointId" name="visitedLocationPointId" placeholder="Enter Visited location ID">
+            </div>
+            <div class="form-group">
+                <label for="locationId">Location ID</label>
+                <input type="number" class="form-control" id="locationId" name="locationId" placeholder="Enter Location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3">
+            <div class="card-header">id</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">dateTimeOfVisitLocationPoint</li>
+                <li class="list-group-item">locationPointId</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Delete an Visited location</h3>
+        <form>
+            <div class="form-group">
+                <label for="visitedLocationPointId">ID</label>
+                <input type="number" class="form-control" id="visitedLocationPointId" name="visitedLocationPointId" placeholder="Enter Visited location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="alert alert-success mt-3" role="alert">
+                Visited location has been deleted!
+            </div>
+        </form>
+    </div>
+</div>
