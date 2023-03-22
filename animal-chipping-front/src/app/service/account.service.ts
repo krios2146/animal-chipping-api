@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AccountRequest } from '../model/account-request';
-import { AccountResponse } from '../model/account-response';
+import { AccountRequest } from '../model/account/account-request';
+import { AccountResponse } from '../model/account/account-response';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { AccountResponse } from '../model/account-response';
 export class AccountService {
   private apiUrl = 'http://localhost:8080/accounts';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAccountById(accountId: number): Observable<AccountResponse> {
     return this.http.get<AccountResponse>(`${this.apiUrl}/${accountId}`);
@@ -23,5 +24,5 @@ export class AccountService {
   deleteAccount(accountId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${accountId}`);
   }
-  
+
 }
