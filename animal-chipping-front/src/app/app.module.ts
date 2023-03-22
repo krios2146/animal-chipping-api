@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AnimalComponent } from './animal/animal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent
+    AccountComponent,
+    AnimalComponent
   ],
   imports: [
     BrowserModule,
