@@ -6,13 +6,15 @@ import { AccountComponent } from './account/account.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AnimalComponent } from './animal/animal.component';
 import { AnimalTypeComponent } from './animal-type/animal-type.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
     AnimalComponent,
-    AnimalTypeComponent
+    AnimalTypeComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
