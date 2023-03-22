@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AnimalComponent } from './animal/animal.component';
 import { AnimalTypeComponent } from './animal-type/animal-type.component';
 import { LocationComponent } from './location/location.component';
+import { VisitedLocationComponent } from './visited-location/visited-location.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { LocationComponent } from './location/location.component';
     AccountComponent,
     AnimalComponent,
     AnimalTypeComponent,
-    LocationComponent
+    LocationComponent,
+    VisitedLocationComponent
   ],
   imports: [
     BrowserModule,
