@@ -2,7 +2,7 @@ import { AnimalCreateRequest } from '../model/animal/animal-create-request';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AnimalResponse } from '../model/animal-response';
+import { AnimalResponse } from '../model/animal/animal-response';
 import { AnimalUpdateRequest } from '../model/animal/animal-update-request';
 
 @Injectable({
