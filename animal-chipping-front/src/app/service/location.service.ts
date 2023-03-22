@@ -1,8 +1,8 @@
-import { AnimalCreateRequest as LocationRequest } from './../model/animal-create-request';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnimalResponse as LocationResponse } from '../model/animal-response';
+import { LocationRequest } from '../model/location-request';
 
 @Injectable({
     providedIn: 'root',
