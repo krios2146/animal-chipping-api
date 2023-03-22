@@ -1,9 +1,9 @@
-import { AnimalCreateRequest } from './../model/animal-create-request';
+import { AnimalCreateRequest } from '../model/animal/animal-create-request';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnimalResponse } from '../model/animal-response';
-import { AnimalUpdateRequest } from '../model/animal-update-request';
+import { AnimalUpdateRequest } from '../model/animal/animal-update-request';
 
 @Injectable({
   providedIn: 'root',
