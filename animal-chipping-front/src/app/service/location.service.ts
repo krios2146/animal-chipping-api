@@ -7,8 +7,8 @@ import { LocationRequest } from '../model/location/location-request';
 @Injectable({
     providedIn: 'root',
 })
-export class AnimalService {
-    private apiUrl = 'http://localhost:8080/locatinos';
+export class LocationService {
+    private apiUrl = 'http://localhost:8080/locations';
 
     constructor(private http: HttpClient) { }
 
