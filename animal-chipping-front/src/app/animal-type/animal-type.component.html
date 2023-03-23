@@ -1,17 +1,17 @@
 <div class="container d-flex">
     <div class="container border p-4">
         <h3>Get an Animal type</h3>
-        <form class="mb-3">
+        <form [formGroup]="findForm" (ngSubmit)="findAnimalType()">
             <div class="form-group">
                 <label for="typeId">ID</label>
-                <input type="number" class="form-control" id="typeId" name="typeId" placeholder="Enter animal type ID">
+                <input type="number" class="form-control" id="typeId" formControlName="typeId" placeholder="Enter animal type ID">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card">
-            <div class="card-header">id</div>
+        <div class="card mt-3" *ngIf="foundedAnimalType">
+            <div class="card-header">id: {{foundedAnimalType.id}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">type</li>
+                <li class="list-group-item">type: {{foundedAnimalType.type}}</li>
             </ul>
         </div>
     </div>
