@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/locations")
+@CrossOrigin
 public class LocationController {
     private final LocationRepository locationRepository;
     private final AnimalRepository animalRepository;
