@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LocationComponent {
   locationAddForm: FormGroup;
-  locationResponse: LocationResponse | undefined;
+  locationAddResponse: LocationResponse | undefined;
 
   constructor(private formBuilder: FormBuilder, private locationService: LocationService) {
     this.locationAddForm = this.formBuilder.group({
@@ -25,7 +25,7 @@ export class LocationComponent {
     const request : LocationRequest = this.getRequestFromForm(this.locationAddForm);
     this.locationService.createLocation(request).subscribe(
       (response: LocationResponse) => {
-        this.locationResponse = response;
+        this.locationAddResponse = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

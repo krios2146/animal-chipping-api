@@ -30,11 +30,11 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card mt-3" *ngIf="locationResponse">
-            <div class="card-header">id: {{locationResponse.id}}</div>
+        <div class="card mt-3" *ngIf="locationAddResponse">
+            <div class="card-header">id: {{locationAddResponse.id}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">latitude: {{locationResponse.latitude}}</li>
-                <li class="list-group-item">longitude: {{locationResponse.longitude}}</li>
+                <li class="list-group-item">latitude: {{locationAddResponse.latitude}}</li>
+                <li class="list-group-item">longitude: {{locationAddResponse.longitude}}</li>
             </ul>
         </div>
     </div>
