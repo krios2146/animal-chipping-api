@@ -98,11 +98,10 @@ export class LocationComponent {
     );
   }
 
-  private getRequestFromForm(locationAddForm: FormGroup): LocationRequest {
-    const request: LocationRequest = {
-      latitude: locationAddForm.get('latitude')?.value,
-      longitude: locationAddForm.get('longitude')?.value
+  private getRequestFromForm(locationForm: FormGroup): LocationRequest {
+    return {
+      latitude: locationForm.get('latitude')?.value,
+      longitude: locationForm.get('longitude')?.value
     };
-    return request;
   }
 }
