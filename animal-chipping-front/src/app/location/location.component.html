@@ -18,23 +18,23 @@
     </div>
 
     <div class="container border p-4">
-        <h3>Add an Location</h3>
-        <form>
+        <h3>Add a Location</h3>
+        <form [formGroup]="locationAddForm" (ngSubmit)="addLocation()">
             <div class="form-group">
                 <label for="latitude">latitude</label>
-                <input type="number" class="form-control" id="latitude" name="latitude" placeholder="Enter Location latitude">
+                <input type="number" class="form-control" id="latitude" formControlName="latitude" placeholder="Enter Location latitude">
             </div>
             <div class="form-group">
                 <label for="longitude">longitude</label>
-                <input type="number" class="form-control" id="longitude" name="longitude" placeholder="Enter Location longitude">
+                <input type="number" class="form-control" id="longitude" formControlName="longitude" placeholder="Enter Location longitude">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card mt-3">
-            <div class="card-header">id</div>
+        <div class="card mt-3" *ngIf="locationResponse">
+            <div class="card-header">id: {{locationResponse.id}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">latitude</li>
-                <li class="list-group-item">longitude</li>
+                <li class="list-group-item">latitude: {{locationResponse.latitude}}</li>
+                <li class="list-group-item">longitude: {{locationResponse.longitude}}</li>
             </ul>
         </div>
     </div>

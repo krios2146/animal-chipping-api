@@ -8,6 +8,8 @@ import { AnimalComponent } from './animal/animal.component';
 import { AnimalTypeComponent } from './animal-type/animal-type.component';
 import { LocationComponent } from './location/location.component';
 import { VisitedLocationComponent } from './visited-location/visited-location.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { VisitedLocationComponent } from './visited-location/visited-location.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
