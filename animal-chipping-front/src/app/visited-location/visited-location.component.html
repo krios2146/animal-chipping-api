@@ -49,7 +49,7 @@
 
     <div class="container border p-4">
         <h3>Delete an Visited location</h3>
-        <form>
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteVisitedLocation()">
             <div class="form-group">
                 <label for="visitedLocationId">ID</label>
                 <input type="number" class="form-control" id="visitedLocationId" formControlName="visitedLocationId" placeholder="Enter Visited location ID">
