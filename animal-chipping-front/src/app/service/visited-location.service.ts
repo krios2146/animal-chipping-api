@@ -14,15 +14,15 @@ export class VisitedLocationService {
   constructor(private http: HttpClient) { }
 
   addVisitedLocationToAnimal(animalId: number, locationId: number): Observable<VisitedLocationResponse> {
-    return this.http.post<VisitedLocationResponse>(`${this.apiUrl}/${animalId}/${locationId}`, null);
+    return this.http.post<VisitedLocationResponse>(`${this.apiUrl}/${animalId}/locations/${locationId}`, null);
   }
 
   updateVisitedLocationOfAnimal(animalId: number, updatedLocation: VisitedLocationRequest): Observable<VisitedLocationResponse> {
-    return this.http.put<VisitedLocationResponse>(`${this.apiUrl}/${animalId}`, updatedLocation);
+    return this.http.put<VisitedLocationResponse>(`${this.apiUrl}/${animalId}/locations`, updatedLocation);
   }
 
-  deleteAccount(animalId: number, visitedLocationId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${animalId}/${visitedLocationId}`);
+  deleteVisitedLocationFromAnimal(animalId: number, visitedLocationId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${animalId}/locations/${visitedLocationId}`);
   }
 
 }
