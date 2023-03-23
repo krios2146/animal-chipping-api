@@ -13,9 +13,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LocationComponent {
   locationFindForm: FormGroup;
   locationAddForm: FormGroup;
+  locationUpdateForm: FormGroup;
 
   foundedLocation: LocationResponse | undefined;
   createdLocation: LocationResponse | undefined;
+  updatedLocation: LocationResponse | undefined;
 
   constructor(private formBuilder: FormBuilder, private locationService: LocationService) {
     this.locationFindForm = this.formBuilder.group({
@@ -23,6 +25,12 @@ export class LocationComponent {
     });
 
     this.locationAddForm = this.formBuilder.group({
+      latitude: [null, Validators.required],
+      longitude: [null, Validators.required]
+    });
+
+    this.locationUpdateForm = this.formBuilder.group({
+      locationId: [null, Validators.required],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });
@@ -53,6 +61,19 @@ export class LocationComponent {
     );
   }
 
+  updateLocation() {
+    const request: LocationRequest = this.getRequestFromForm(this.locationUpdateForm);
+    const locationId = this.locationUpdateForm.get('locationId')!.value;
+    this.locationService.updateLocation(request, locationId).subscribe(
+      (response: LocationResponse) => {
+        this.updatedLocation = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   private getRequestFromForm(locationAddForm: FormGroup): LocationRequest {
     const request: LocationRequest = {
       latitude: locationAddForm.get('latitude')?.value,
@@ -60,5 +81,4 @@ export class LocationComponent {
     };
     return request;
   }
-
 }
