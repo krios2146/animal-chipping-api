@@ -17,8 +17,8 @@ export class AccountService {
     return this.http.get<AccountResponse>(`${this.apiUrl}/${accountId}`);
   }
 
-  updateAccount(accountData: AccountRequest): Observable<AccountResponse> {
-    return this.http.put<AccountResponse>(this.apiUrl, accountData);
+  updateAccount(accountId: number, updatedAccount: AccountRequest): Observable<AccountResponse> {
+    return this.http.put<AccountResponse>(`${this.apiUrl}/${accountId}`, updatedAccount);
   }
 
   deleteAccount(accountId: number): Observable<void> {
