@@ -1,18 +1,18 @@
 <div class="container d-flex">
     <div class="container border p-4">
-        <h3>Get an Location</h3>
-        <form class="mb-3">
+        <h3>Get a Location</h3>
+        <form [formGroup]="locationFindForm" (ngSubmit)="findLocation()">
             <div class="form-group">
-                <label for="typeId">ID</label>
-                <input type="number" class="form-control" id="typeId" name="typeId" placeholder="Enter Location ID">
+                <label for="locationId">ID</label>
+                <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="locationFindForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card">
-            <div class="card-header">id</div>
+        <div class="card mt-3" *ngIf="foundedLocation">
+            <div class="card-header">id: {{foundedLocation.id}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">latitude</li>
-                <li class="list-group-item">longitude</li>
+                <li class="list-group-item">latitude: {{foundedLocation.latitude}}</li>
+                <li class="list-group-item">longitude: {{foundedLocation.longitude}}</li>
             </ul>
         </div>
     </div>
@@ -30,11 +30,11 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card mt-3" *ngIf="locationAddResponse">
-            <div class="card-header">id: {{locationAddResponse.id}}</div>
+        <div class="card mt-3" *ngIf="createdLocation">
+            <div class="card-header">id: {{createdLocation.id}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">latitude: {{locationAddResponse.latitude}}</li>
-                <li class="list-group-item">longitude: {{locationAddResponse.longitude}}</li>
+                <li class="list-group-item">latitude: {{createdLocation.latitude}}</li>
+                <li class="list-group-item">longitude: {{createdLocation.longitude}}</li>
             </ul>
         </div>
     </div>

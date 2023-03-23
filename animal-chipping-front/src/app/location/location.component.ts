@@ -11,21 +11,41 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./location.component.css']
 })
 export class LocationComponent {
+  locationFindForm: FormGroup;
   locationAddForm: FormGroup;
-  locationAddResponse: LocationResponse | undefined;
+
+  foundedLocation: LocationResponse | undefined;
+  createdLocation: LocationResponse | undefined;
 
   constructor(private formBuilder: FormBuilder, private locationService: LocationService) {
+    this.locationFindForm = this.formBuilder.group({
+      locationId: [null, [Validators.required, Validators.min(1)]],
+    });
+
     this.locationAddForm = this.formBuilder.group({
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });
   }
 
+  findLocation() {
+    const locationId = this.locationFindForm.get('locationId')!.value;
+    console.log(locationId);
+    this.locationService.getLocationById(locationId).subscribe(
+      (response: LocationResponse) => {
+        this.foundedLocation = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
   addLocation() {
-    const request : LocationRequest = this.getRequestFromForm(this.locationAddForm);
+    const request: LocationRequest = this.getRequestFromForm(this.locationAddForm);
     this.locationService.createLocation(request).subscribe(
       (response: LocationResponse) => {
-        this.locationAddResponse = response;
+        this.createdLocation = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -34,7 +54,7 @@ export class LocationComponent {
   }
 
   private getRequestFromForm(locationAddForm: FormGroup): LocationRequest {
-    const request : LocationRequest = {
+    const request: LocationRequest = {
       latitude: locationAddForm.get('latitude')?.value,
       longitude: locationAddForm.get('longitude')?.value
     };
