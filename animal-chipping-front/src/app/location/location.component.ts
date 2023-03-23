@@ -14,10 +14,12 @@ export class LocationComponent {
   locationFindForm: FormGroup;
   locationAddForm: FormGroup;
   locationUpdateForm: FormGroup;
+  locationDeleteForm: FormGroup;
 
   foundedLocation: LocationResponse | undefined;
   createdLocation: LocationResponse | undefined;
   updatedLocation: LocationResponse | undefined;
+  isLocationDeleted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private locationService: LocationService) {
     this.locationFindForm = this.formBuilder.group({
@@ -33,6 +35,10 @@ export class LocationComponent {
       locationId: [null, Validators.required],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
+    });
+
+    this.locationDeleteForm = this.formBuilder.group({
+      locationId: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -67,6 +73,24 @@ export class LocationComponent {
     this.locationService.updateLocation(request, locationId).subscribe(
       (response: LocationResponse) => {
         this.updatedLocation = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  deleteLocation() {
+    const locationId = this.locationDeleteForm.get('locationId')!.value;
+    this.locationService.deleteLocation(locationId).subscribe(
+      () => {
+        this.isLocationDeleted = true;
+        setTimeout(
+          () => {
+            this.isLocationDeleted = false;
+          },
+          3000
+        );
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
