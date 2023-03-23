@@ -64,6 +64,8 @@ public class LocationController {
             return ResponseEntity.notFound().build();
         }
 
+        Location locationToUpdate = locationOptional.get();
+
         locationOptional = locationRepository.findByLatitudeAndLongitude(
                 locationFromRequest.getLatitude(),
                 locationFromRequest.getLongitude()
@@ -72,8 +74,6 @@ public class LocationController {
         if (locationOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-
-        Location locationToUpdate = locationOptional.get();
 
         locationToUpdate.setLatitude(locationFromRequest.getLatitude());
         locationToUpdate.setLongitude(locationFromRequest.getLongitude());
