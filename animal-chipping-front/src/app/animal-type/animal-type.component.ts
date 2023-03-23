@@ -14,24 +14,30 @@ export class AnimalTypeComponent {
   findForm: FormGroup;
   addForm: FormGroup;
   updateForm: FormGroup;
+  deleteForm: FormGroup;
 
   foundedAnimalType: AnimalTypeResponse | undefined;
   addedAnimalType: AnimalTypeResponse | undefined;
   updatedAnimalType: AnimalTypeResponse | undefined;
+  isAnimalTypeDeleted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private animalTypeService: AnimalTypeService) {
     this.findForm = this.formBuilder.group({
       typeId: [null, Validators.required]
-    })
+    });
 
     this.addForm = this.formBuilder.group({
       type: [null, Validators.required]
-    })
+    });
 
     this.updateForm = this.formBuilder.group({
       typeId: [null, Validators.required],
       type: [null, Validators.required]
-    })
+    });
+
+    this.deleteForm = this.formBuilder.group({
+      typeId: [null, Validators.required]
+    });
   }
 
   findAnimalType() {
@@ -64,6 +70,24 @@ export class AnimalTypeComponent {
     this.animalTypeService.updateAnimalType(request, typeId).subscribe(
       (response: AnimalTypeResponse) => {
         this.updatedAnimalType = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  deleteAnimalType() {
+    const typeId = this.deleteForm.get('typeId')!.value;
+    this.animalTypeService.deleteAnimalType(typeId).subscribe(
+      () => {
+        this.isAnimalTypeDeleted = true;
+        setTimeout(
+          () => {
+            this.isAnimalTypeDeleted = false;
+          },
+          3000
+        );
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

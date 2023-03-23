@@ -56,13 +56,13 @@
 
     <div class="container border p-4">
         <h3>Delete an Animal type</h3>
-        <form>
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteAnimalType()">
             <div class="form-group">
                 <label for="typeId">ID</label>
-                <input type="number" class="form-control" id="typeId" name="typeId" placeholder="Enter animal type ID">
+                <input type="number" class="form-control" id="typeId" formControlName="typeId" placeholder="Enter animal type ID">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <div class="alert alert-success mt-3" role="alert">
+            <div class="alert alert-success mt-3" role="alert" *ngIf="isAnimalTypeDeleted">
                 Animal has been deleted!
             </div>
         </form>
