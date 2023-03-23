@@ -1,122 +1,146 @@
 <div class="container d-flex">
     <div class="container border p-4">
         <h3>Get an Animal</h3>
-        <form class="mb-3">
+        <form [formGroup]="findForm" (ngSubmit)="findAnimal()">
             <div class="form-group">
                 <label for="animalId">ID</label>
-                <input type="number" class="form-control" id="animalId" name="animalId" placeholder="Enter animal ID">
+                <input type="number" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter animal ID">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card">
-            <div class="card-header">id</div>
+        <div class="card mt-3" *ngIf="foundedAnimal">
+            <div class="card-header">id: {{foundedAnimal}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">animalTypes</li>
-                <li class="list-group-item">weight</li>
-                <li class="list-group-item">length</li>
-                <li class="list-group-item">height</li>
-                <li class="list-group-item">gender</li>
-                <li class="list-group-item">lifeStatus</li>
-                <li class="list-group-item">chippingDateTime</li>
-                <li class="list-group-item">chipperId</li>
-                <li class="list-group-item">chippingLocationId</li>
-                <li class="list-group-item">visitedLocations</li>
-                <li class="list-group-item">deathDateTime</li>
+                <li class="list-group-item">animalTypes: {{foundedAnimal.animalTypes}}</li>
+                <li class="list-group-item">weight: {{foundedAnimal.weight}}</li>
+                <li class="list-group-item">length: {{foundedAnimal.length}}</li>
+                <li class="list-group-item">height: {{foundedAnimal.height}}</li>
+                <li class="list-group-item">gender: {{foundedAnimal.gender}}</li>
+                <li class="list-group-item">lifeStatus: {{foundedAnimal.lifeStatus}}</li>
+                <li class="list-group-item">chippingDateTime: {{foundedAnimal.chippingDateTime}}</li>
+                <li class="list-group-item">chipperId: {{foundedAnimal.chipperId}}</li>
+                <li class="list-group-item">chippingLocationId: {{foundedAnimal.chippingLocationId}}</li>
+                <li class="list-group-item">visitedLocations: {{foundedAnimal.visitedLocations}}</li>
+                <li class="list-group-item">deathDateTime: {{foundedAnimal.deathDateTime}}</li>
             </ul>
         </div>
     </div>
 
     <div class="container border p-4">
         <h3>Add an Animal</h3>
-        <form>
+        <form [formGroup]="addForm" (ngSubmit)="addAnimal()">
             <div class="form-group">
                 <label for="weight">weight</label>
-                <input type="number" class="form-control" id="weight" name="weight" placeholder="Enter animal weight">
+                <input type="number" class="form-control" id="weight" formControlName="weight" placeholder="Enter animal weight">
             </div>
             <div class="form-group">
                 <label for="length">length</label>
-                <input type="number" class="form-control" id="length" name="length" placeholder="Enter animal length">
+                <input type="number" class="form-control" id="length" formControlName="length" placeholder="Enter animal length">
             </div>
             <div class="form-group">
                 <label for="height">height</label>
-                <input type="number" class="form-control" id="height" name="height" placeholder="Enter animal height">
+                <input type="number" class="form-control" id="height" formControlName="height" placeholder="Enter animal height">
             </div>
             <div class="form-group">
                 <label for="gender">gender</label>
-                <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter animal gender">
+                <input type="text" class="form-control" id="gender" formControlName="gender" placeholder="Enter animal gender">
             </div>
             <div class="form-group">
                 <label for="chipperId">chipperId</label>
-                <input type="number" class="form-control" id="chipperId" name="chipperId" placeholder="Enter chipper ID">
+                <input type="number" class="form-control" id="chipperId" formControlName="chipperId" placeholder="Enter chipper ID">
             </div>
             <div class="form-group">
                 <label for="chippingLocationId">chippingLocationId</label>
-                <input type="number" class="form-control" id="chippingLocationId" name="chippingLocationId" placeholder="Enter chipping Location ID">
+                <input type="number" class="form-control" id="chippingLocationId" formControlName="chippingLocationId" placeholder="Enter chipping Location ID">
+            </div>
+            <div class="form-group">
+                <label for="animalTypes">animalTypes</label>
+                <input type="text" class="form-control" id="animalTypes" formControlName="animalTypes" placeholder="Enter animal type">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <div class="card mt-3" *ngIf="addedAnimal">
+            <div class="card-header">id: {{addedAnimal}}</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">animalTypes: {{addedAnimal.animalTypes}}</li>
+                <li class="list-group-item">weight: {{addedAnimal.weight}}</li>
+                <li class="list-group-item">length: {{addedAnimal.length}}</li>
+                <li class="list-group-item">height: {{addedAnimal.height}}</li>
+                <li class="list-group-item">gender: {{addedAnimal.gender}}</li>
+                <li class="list-group-item">lifeStatus: {{addedAnimal.lifeStatus}}</li>
+                <li class="list-group-item">chippingDateTime: {{addedAnimal.chippingDateTime}}</li>
+                <li class="list-group-item">chipperId: {{addedAnimal.chipperId}}</li>
+                <li class="list-group-item">chippingLocationId: {{addedAnimal.chippingLocationId}}</li>
+                <li class="list-group-item">visitedLocations: {{addedAnimal.visitedLocations}}</li>
+                <li class="list-group-item">deathDateTime: {{addedAnimal.deathDateTime}}</li>
+            </ul>
+        </div>
     </div>
 
     <div class="container border p-4">
         <h3>Update an Animal</h3>
-        <form>
+        <form [formGroup]="updateForm" (ngSubmit)="updateAnimal()">
+            <div class="form-group">
+                <label for="animalId">animalId</label>
+                <input type="number" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter animal ID">
+            </div>
             <div class="form-group">
                 <label for="weight">weight</label>
-                <input type="number" class="form-control" id="weight" name="weight" placeholder="Enter animal weight">
+                <input type="number" class="form-control" id="weight" formControlName="weight" placeholder="Enter animal weight">
             </div>
             <div class="form-group">
                 <label for="length">length</label>
-                <input type="number" class="form-control" id="length" name="length" placeholder="Enter animal length">
+                <input type="number" class="form-control" id="length" formControlName="length" placeholder="Enter animal length">
             </div>
             <div class="form-group">
                 <label for="height">height</label>
-                <input type="number" class="form-control" id="height" name="height" placeholder="Enter animal height">
+                <input type="number" class="form-control" id="height" formControlName="height" placeholder="Enter animal height">
             </div>
             <div class="form-group">
                 <label for="gender">gender</label>
-                <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter animal gender">
+                <input type="text" class="form-control" id="gender" formControlName="gender" placeholder="Enter animal gender">
             </div>
             <div class="form-group">
                 <label for="lifeStatus">lifeStatus</label>
-                <input type="text" class="form-control" id="lifeStatus" name="lifeStatus" placeholder="Enter animal life status">
+                <input type="text" class="form-control" id="lifeStatus" formControlName="lifeStatus" placeholder="Enter animal life status">
             </div>
             <div class="form-group">
                 <label for="chipperId">chipperId</label>
-                <input type="number" class="form-control" id="chipperId" name="chipperId" placeholder="Enter chipper ID">
+                <input type="number" class="form-control" id="chipperId" formControlName="chipperId" placeholder="Enter chipper ID">
             </div>
             <div class="form-group">
                 <label for="chippingLocationId">chippingLocationId</label>
-                <input type="number" class="form-control" id="chippingLocationId" name="chippingLocationId" placeholder="Enter chipping Location ID">
+                <input type="number" class="form-control" id="chippingLocationId" formControlName="chippingLocationId" placeholder="Enter chipping Location ID">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card mt-5">
-            <div class="card-header">id</div>
+        <div class="card mt-3" *ngIf="updatedAnimal">
+            <div class="card-header">id: {{updatedAnimal}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">animalTypes</li>
-                <li class="list-group-item">weight</li>
-                <li class="list-group-item">length</li>
-                <li class="list-group-item">height</li>
-                <li class="list-group-item">gender</li>
-                <li class="list-group-item">lifeStatus</li>
-                <li class="list-group-item">chippingDateTime</li>
-                <li class="list-group-item">chipperId</li>
-                <li class="list-group-item">chippingLocationId</li>
-                <li class="list-group-item">visitedLocations</li>
-                <li class="list-group-item">deathDateTime</li>
+                <li class="list-group-item">animalTypes: {{updatedAnimal.animalTypes}}</li>
+                <li class="list-group-item">weight: {{updatedAnimal.weight}}</li>
+                <li class="list-group-item">length: {{updatedAnimal.length}}</li>
+                <li class="list-group-item">height: {{updatedAnimal.height}}</li>
+                <li class="list-group-item">gender: {{updatedAnimal.gender}}</li>
+                <li class="list-group-item">lifeStatus: {{updatedAnimal.lifeStatus}}</li>
+                <li class="list-group-item">chippingDateTime: {{updatedAnimal.chippingDateTime}}</li>
+                <li class="list-group-item">chipperId: {{updatedAnimal.chipperId}}</li>
+                <li class="list-group-item">chippingLocationId: {{updatedAnimal.chippingLocationId}}</li>
+                <li class="list-group-item">visitedLocations: {{updatedAnimal.visitedLocations}}</li>
+                <li class="list-group-item">deathDateTime: {{updatedAnimal.deathDateTime}}</li>
             </ul>
         </div>
     </div>
 
     <div class="container border p-4">
         <h3>Delete an Animal</h3>
-        <form>
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteAnimal()">
             <div class="form-group">
                 <label for="animalId">ID</label>
-                <input type="text" class="form-control" id="animalId" name="animalId" placeholder="Enter animal ID">
+                <input type="text" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter animal ID">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <div class="alert alert-success mt-3" role="alert">
+            <div class="alert alert-success mt-3" role="alert" *ngIf="isAnimalDeleted">
                 Animal has been deleted!
             </div>
         </form>
