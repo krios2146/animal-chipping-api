@@ -13,9 +13,11 @@ import { AnimalTypeRequest } from '../model/animal-type/animal-type-request';
 export class AnimalTypeComponent {
   findForm: FormGroup;
   addForm: FormGroup;
+  updateForm: FormGroup;
 
   foundedAnimalType: AnimalTypeResponse | undefined;
   addedAnimalType: AnimalTypeResponse | undefined;
+  updatedAnimalType: AnimalTypeResponse | undefined;
 
   constructor(private formBuilder: FormBuilder, private animalTypeService: AnimalTypeService) {
     this.findForm = this.formBuilder.group({
@@ -23,6 +25,11 @@ export class AnimalTypeComponent {
     })
 
     this.addForm = this.formBuilder.group({
+      type: [null, Validators.required]
+    })
+
+    this.updateForm = this.formBuilder.group({
+      typeId: [null, Validators.required],
       type: [null, Validators.required]
     })
   }
@@ -44,6 +51,19 @@ export class AnimalTypeComponent {
     this.animalTypeService.createAnimalType(request).subscribe(
       (response: AnimalTypeResponse) => {
         this.addedAnimalType = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  updateAnimalType() {
+    const typeId = this.updateForm.get('typeId')!.value;
+    const request: AnimalTypeRequest = this.getRequestFromForm(this.updateForm);
+    this.animalTypeService.updateAnimalType(request, typeId).subscribe(
+      (response: AnimalTypeResponse) => {
+        this.updatedAnimalType = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

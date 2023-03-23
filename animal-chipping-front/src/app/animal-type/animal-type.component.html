@@ -35,21 +35,21 @@
 
     <div class="container border p-4">
         <h3>Update an Animal type</h3>
-        <form>
+        <form [formGroup]="updateForm" (ngSubmit)="updateAnimalType()">
             <div class="form-group">
                 <label for="typeId">ID</label>
-                <input type="number" class="form-control" id="typeId" name="typeId" placeholder="Enter animal type ID">
+                <input type="number" class="form-control" id="typeId" formControlName="typeId" placeholder="Enter animal type ID">
             </div>
             <div class="form-group">
-                <label for="typeId">type</label>
-                <input type="text" class="form-control" id="typeId" name="typeId" placeholder="Enter animal type">
+                <label for="type">type</label>
+                <input type="text" class="form-control" id="type" formControlName="type" placeholder="Enter animal type">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div class="card mt-3">
-            <div class="card-header">id</div>
+        <div class="card mt-3" *ngIf="updatedAnimalType">
+            <div class="card-header">id: {{updatedAnimalType.id}}</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">type</li>
+                <li class="list-group-item">type: {{updatedAnimalType.type}}</li>
             </ul>
         </div>
     </div>
