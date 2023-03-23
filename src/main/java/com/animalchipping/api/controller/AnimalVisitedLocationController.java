@@ -27,6 +27,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/animals")
+@CrossOrigin
 public class AnimalVisitedLocationController {
     private final AnimalVisitedLocationRepository animalVisitedLocationRepository;
     private final AnimalRepository animalRepository;
