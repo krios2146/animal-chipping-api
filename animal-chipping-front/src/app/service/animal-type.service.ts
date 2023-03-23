@@ -24,7 +24,7 @@ export class AnimalTypeService {
     return this.http.put<AnimalTypeResponse>(`${this.apiUrl}/${typeId}`, updatedType);
   }
 
-  deleteAnimalType(animalId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${animalId}`);
+  deleteAnimalType(typeId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${typeId}`);
   }
 }
