@@ -6,7 +6,7 @@
                 <label for="animalId">ID</label>
                 <input type="number" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter animal ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="foundedAnimal">
             <div class="card-header">id: {{foundedAnimal}}</div>
@@ -57,7 +57,7 @@
                 <label for="animalTypes">animalTypes</label>
                 <input type="text" class="form-control" id="animalTypes" formControlName="animalTypes" placeholder="Enter animal type">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="addedAnimal">
             <div class="card-header">id: {{addedAnimal}}</div>
@@ -112,7 +112,7 @@
                 <label for="chippingLocationId">chippingLocationId</label>
                 <input type="number" class="form-control" id="chippingLocationId" formControlName="chippingLocationId" placeholder="Enter chipping Location ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="updatedAnimal">
             <div class="card-header">id: {{updatedAnimal}}</div>
@@ -139,7 +139,7 @@
                 <label for="animalId">ID</label>
                 <input type="text" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter animal ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
             <div class="alert alert-success mt-3" role="alert" *ngIf="isAnimalDeleted">
                 Animal has been deleted!
             </div>

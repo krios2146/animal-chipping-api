@@ -25,32 +25,32 @@ export class AnimalComponent {
 
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService) {
     this.findForm = this.formBuilder.group({
-      animalId: [null, [Validators.required]]
+      animalId: [null, [Validators.required, Validators.min(1)]]
     });
 
     this.addForm = this.formBuilder.group({
-      weight: [null, [Validators.required]],
-      length: [null, [Validators.required]],
-      height: [null, [Validators.required]],
+      weight: [null, [Validators.required, Validators.min(1)]],
+      length: [null, [Validators.required, Validators.min(1)]],
+      height: [null, [Validators.required, Validators.min(1)]],
       gender: [null, [Validators.required]],
-      chipperId: [null, [Validators.required]],
-      chippingLocationId: [null, [Validators.required]],
+      chipperId: [null, [Validators.required, Validators.min(1)]],
+      chippingLocationId: [null, [Validators.required, Validators.min(1)]],
       animalTypes: [null, [Validators.required]]
     });
 
     this.updateForm = this.formBuilder.group({
-      animalId: [null, [Validators.required]],
-      weight: [null, [Validators.required]],
-      length: [null, [Validators.required]],
-      height: [null, [Validators.required]],
+      animalId: [null, [Validators.required, Validators.min(1)]],
+      weight: [null, [Validators.required, Validators.min(1)]],
+      length: [null, [Validators.required, Validators.min(1)]],
+      height: [null, [Validators.required, Validators.min(1)]],
       gender: [null, [Validators.required]],
-      chipperId: [null, [Validators.required]],
-      chippingLocationId: [null, [Validators.required]],
+      chipperId: [null, [Validators.required, Validators.min(1)]],
+      chippingLocationId: [null, [Validators.required, Validators.min(1)]],
       lifeStatus: [null, [Validators.required]]
     });
 
     this.deleteForm = this.formBuilder.group({
-      animalId: [null, [Validators.required]]
+      animalId: [null, [Validators.required, Validators.min(1)]]
     });
   }
 
