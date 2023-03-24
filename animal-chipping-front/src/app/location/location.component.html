@@ -72,7 +72,7 @@
                 <label for="locationId">ID</label>
                 <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
             <div class="alert alert-success mt-3" role="alert" *ngIf="isLocationDeleted">
                 Location has been deleted!
             </div>
