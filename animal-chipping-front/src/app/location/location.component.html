@@ -1,12 +1,12 @@
 <div class="container d-flex">
     <div class="container border p-4">
         <h3>Get a Location</h3>
-        <form [formGroup]="locationFindForm" (ngSubmit)="findLocation()">
+        <form [formGroup]="findForm" (ngSubmit)="findLocation()">
             <div class="form-group">
                 <label for="locationId">ID</label>
                 <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
             </div>
-            <button [disabled]="locationFindForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="foundedLocation">
             <div class="card-header">id: {{foundedLocation.id}}</div>
@@ -19,7 +19,7 @@
 
     <div class="container border p-4">
         <h3>Add a Location</h3>
-        <form [formGroup]="locationAddForm" (ngSubmit)="addLocation()">
+        <form [formGroup]="addForm" (ngSubmit)="addLocation()">
             <div class="form-group">
                 <label for="latitude">latitude</label>
                 <input type="number" class="form-control" id="latitude" formControlName="latitude" placeholder="Enter Location latitude">
@@ -41,7 +41,7 @@
 
     <div class="container border p-4">
         <h3>Update an Location</h3>
-        <form [formGroup]="locationUpdateForm" (ngSubmit)="updateLocation()">
+        <form [formGroup]="updateForm" (ngSubmit)="updateLocation()">
             <div class="form-group">
                 <label for="locationId">ID</label>
                 <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
@@ -67,7 +67,7 @@
 
     <div class="container border p-4">
         <h3>Delete an Location</h3>
-        <form [formGroup]="locationDeleteForm" (ngSubmit)="deleteLocation()">
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteLocation()">
             <div class="form-group">
                 <label for="locationId">ID</label>
                 <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">

@@ -11,10 +11,10 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./location.component.css']
 })
 export class LocationComponent {
-  locationFindForm: FormGroup;
-  locationAddForm: FormGroup;
-  locationUpdateForm: FormGroup;
-  locationDeleteForm: FormGroup;
+  findForm: FormGroup;
+  addForm: FormGroup;
+  updateForm: FormGroup;
+  deleteForm: FormGroup;
 
   foundedLocation: LocationResponse | undefined;
   createdLocation: LocationResponse | undefined;
@@ -22,28 +22,28 @@ export class LocationComponent {
   isLocationDeleted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private locationService: LocationService) {
-    this.locationFindForm = this.formBuilder.group({
+    this.findForm = this.formBuilder.group({
       locationId: [null, [Validators.required, Validators.min(1)]],
     });
 
-    this.locationAddForm = this.formBuilder.group({
+    this.addForm = this.formBuilder.group({
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });
 
-    this.locationUpdateForm = this.formBuilder.group({
+    this.updateForm = this.formBuilder.group({
       locationId: [null, Validators.required],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });
 
-    this.locationDeleteForm = this.formBuilder.group({
+    this.deleteForm = this.formBuilder.group({
       locationId: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
   findLocation() {
-    const locationId = this.locationFindForm.get('locationId')!.value;
+    const locationId = this.findForm.get('locationId')!.value;
     console.log(locationId);
     this.locationService.getLocationById(locationId).subscribe(
       (response: LocationResponse) => {
@@ -56,7 +56,7 @@ export class LocationComponent {
   }
 
   addLocation() {
-    const request: LocationRequest = this.getRequestFromForm(this.locationAddForm);
+    const request: LocationRequest = this.getRequestFromForm(this.addForm);
     this.locationService.createLocation(request).subscribe(
       (response: LocationResponse) => {
         this.createdLocation = response;
@@ -68,8 +68,8 @@ export class LocationComponent {
   }
 
   updateLocation() {
-    const request: LocationRequest = this.getRequestFromForm(this.locationUpdateForm);
-    const locationId = this.locationUpdateForm.get('locationId')!.value;
+    const request: LocationRequest = this.getRequestFromForm(this.updateForm);
+    const locationId = this.updateForm.get('locationId')!.value;
     this.locationService.updateLocation(request, locationId).subscribe(
       (response: LocationResponse) => {
         this.updatedLocation = response;
@@ -81,7 +81,7 @@ export class LocationComponent {
   }
 
   deleteLocation() {
-    const locationId = this.locationDeleteForm.get('locationId')!.value;
+    const locationId = this.deleteForm.get('locationId')!.value;
     this.locationService.deleteLocation(locationId).subscribe(
       () => {
         this.isLocationDeleted = true;
