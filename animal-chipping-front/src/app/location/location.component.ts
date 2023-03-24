@@ -32,9 +32,9 @@ export class LocationComponent {
     });
 
     this.updateForm = this.formBuilder.group({
-      locationId: [null, Validators.required],
-      latitude: [null, Validators.required],
-      longitude: [null, Validators.required]
+      locationId: [null, [Validators.required, Validators.min(1)]],
+      latitude: [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+      longitude: [null, [Validators.required, Validators.min(-180), Validators.max(180)]]
     });
 
     this.deleteForm = this.formBuilder.group({
