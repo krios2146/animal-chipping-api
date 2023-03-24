@@ -28,7 +28,7 @@
                 <label for="longitude">longitude</label>
                 <input type="number" class="form-control" id="longitude" formControlName="longitude" placeholder="Enter Location longitude">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="createdLocation">
             <div class="card-header">id: {{createdLocation.id}}</div>

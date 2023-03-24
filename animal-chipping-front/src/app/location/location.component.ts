@@ -27,8 +27,8 @@ export class LocationComponent {
     });
 
     this.addForm = this.formBuilder.group({
-      latitude: [null, Validators.required],
-      longitude: [null, Validators.required]
+      latitude: [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+      longitude: [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
     });
 
     this.updateForm = this.formBuilder.group({
