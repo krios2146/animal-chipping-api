@@ -6,7 +6,7 @@
                 <label for="typeId">ID</label>
                 <input type="number" class="form-control" id="typeId" formControlName="typeId" placeholder="Enter animal type ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="foundedAnimalType">
             <div class="card-header">id: {{foundedAnimalType.id}}</div>
@@ -23,7 +23,7 @@
                 <label for="type">type</label>
                 <input type="text" class="form-control" id="type" formControlName="type" placeholder="Enter animal type">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="addedAnimalType">
             <div class="card-header">id: {{addedAnimalType.id}}</div>
@@ -44,7 +44,7 @@
                 <label for="type">type</label>
                 <input type="text" class="form-control" id="type" formControlName="type" placeholder="Enter animal type">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="updatedAnimalType">
             <div class="card-header">id: {{updatedAnimalType.id}}</div>
@@ -61,7 +61,7 @@
                 <label for="typeId">ID</label>
                 <input type="number" class="form-control" id="typeId" formControlName="typeId" placeholder="Enter animal type ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
             <div class="alert alert-success mt-3" role="alert" *ngIf="isAnimalTypeDeleted">
                 Animal has been deleted!
             </div>
