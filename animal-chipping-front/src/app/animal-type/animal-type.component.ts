@@ -23,7 +23,7 @@ export class AnimalTypeComponent {
 
   constructor(private formBuilder: FormBuilder, private animalTypeService: AnimalTypeService) {
     this.findForm = this.formBuilder.group({
-      typeId: [null, Validators.required]
+      typeId: [null, [Validators.required, Validators.min(1)]]
     });
 
     this.addForm = this.formBuilder.group({
@@ -31,12 +31,12 @@ export class AnimalTypeComponent {
     });
 
     this.updateForm = this.formBuilder.group({
-      typeId: [null, Validators.required],
+      typeId: [null, [Validators.required, Validators.min(1)]],
       type: [null, Validators.required]
     });
 
     this.deleteForm = this.formBuilder.group({
-      typeId: [null, Validators.required]
+      typeId: [null, [Validators.required, Validators.min(1)]]
     });
   }
 
