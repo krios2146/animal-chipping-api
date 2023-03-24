@@ -10,7 +10,7 @@
                 <label for="locationId">Location ID</label>
                 <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Visited location ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="addedVisitedLocation">
             <div class="card-header">id: {{addedVisitedLocation.id}}</div>
@@ -36,7 +36,7 @@
                 <label for="locationId">Location ID</label>
                 <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="updatedVisitedLocation">
             <div class="card-header">id: {{updatedVisitedLocation.id}}</div>
@@ -54,7 +54,7 @@
                 <label for="visitedLocationId">ID</label>
                 <input type="number" class="form-control" id="visitedLocationId" formControlName="visitedLocationId" placeholder="Enter Visited location ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
             <div class="alert alert-success mt-3" role="alert" *ngIf="isVisitedLocationDeleted">
                 Visited location has been deleted!
             </div>

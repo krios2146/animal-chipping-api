@@ -21,18 +21,18 @@ export class VisitedLocationComponent {
 
   constructor(private formBuilder: FormBuilder, private visitedLocationService: VisitedLocationService) {
     this.addForm = this.formBuilder.group({
-      animalId: [null, Validators.required],
-      locationId: [null, Validators.required]
+      animalId: [null, [Validators.required, Validators.min(1)]],
+      locationId: [null, [Validators.required, Validators.min(1)]]
     });
 
     this.updateForm = this.formBuilder.group({
-      animalId: [null, Validators.required],
-      visitedLocationId: [null, Validators.required],
-      locationId: [null, Validators.required]
+      animalId: [null, [Validators.required, Validators.min(1)]],
+      visitedLocationId: [null, [Validators.required, Validators.min(1)]],
+      locationId: [null, [Validators.required, Validators.min(1)]]
     });
 
     this.deleteForm = this.formBuilder.group({
-      visitedLocationId: [null, Validators.required],
+      visitedLocationId: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
