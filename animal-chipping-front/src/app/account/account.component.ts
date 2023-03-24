@@ -25,9 +25,10 @@ export class AccountComponent {
     });
 
     this.updateForm = this.formBuilder.group({
+      accountId: [null, [Validators.required, Validators.min(1)]],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      email: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required]
     });
 

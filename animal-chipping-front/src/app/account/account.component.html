@@ -4,9 +4,9 @@
         <form [formGroup]="findForm" (ngSubmit)="findAccount()">
             <div class="form-group">
                 <label for="accountId">ID</label>
-                <input type="text" class="form-control" id="accountId" formControlName="accountId" placeholder="Enter ID">
+                <input type="number" class="form-control" id="accountId" formControlName="accountId" placeholder="Enter ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="foundedAccount">
             <div class="card-header">id: {{foundedAccount.id}}</div>
@@ -21,6 +21,10 @@
     <div class="container border p-4">
         <h3>Update an Account</h3>
         <form [formGroup]="updateForm" (ngSubmit)="updateAccount()">
+            <div class="form-group">
+                <label for="accountId">ID</label>
+                <input type="number" class="form-control" id="accountId" formControlName="accountId" placeholder="Enter account ID">
+            </div>
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter First Name">
@@ -37,7 +41,7 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter Password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div class="card mt-3" *ngIf="updatedAccount">
             <div class="card-header">id: {{updatedAccount.id}}</div>
@@ -54,9 +58,9 @@
         <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
             <div class="form-group">
                 <label for="accountId">ID</label>
-                <input type="text" class="form-control" id="accountId" name="accountId" placeholder="Enter ID">
+                <input type="number" class="form-control" id="accountId" formControlName="accountId" placeholder="Enter ID">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
             <div class="alert alert-success mt-3" role="alert" *ngIf="isAccountDeleted">
                 Account has been deleted!
             </div>
