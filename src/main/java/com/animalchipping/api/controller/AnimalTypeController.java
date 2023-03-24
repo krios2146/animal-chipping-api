@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/animals/types")
+@CrossOrigin
 public class AnimalTypeController {
     private final AnimalTypeRepository animalTypeRepository;
     private final AnimalRepository animalRepository;

@@ -32,6 +32,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/animals")
+@CrossOrigin
 public class AnimalController {
     private final AnimalRepository animalRepository;
     private final AnimalTypeRepository animalTypeRepository;

@@ -1,0 +1,63 @@
+<div class="container d-flex">
+    <div class="container border p-4">
+        <h3>Add a Visited location</h3>
+        <form [formGroup]="addForm" (ngSubmit)="addVisitedLocation()">
+            <div class="form-group">
+                <label for="animalId">Animal ID</label>
+                <input type="number" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter Animal ID">
+            </div>
+            <div class="form-group">
+                <label for="locationId">Location ID</label>
+                <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Visited location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3" *ngIf="addedVisitedLocation">
+            <div class="card-header">id: {{addedVisitedLocation.id}}</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">dateTimeOfVisitLocation: {{addedVisitedLocation.dateTimeOfVisitLocationPoint}}</li>
+                <li class="list-group-item">locationId: {{addedVisitedLocation.locationPointId}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Update a Visited location</h3>
+        <form [formGroup]="updateForm" (ngSubmit)="updateVisitedLocation()">
+            <div class="form-group">
+                <label for="animalId">Animal ID</label>
+                <input type="number" class="form-control" id="animalId" formControlName="animalId" placeholder="Enter Animal ID">
+            </div>
+            <div class="form-group">
+                <label for="visitedLocationId">Visited Location ID</label>
+                <input type="number" class="form-control" id="visitedLocationId" formControlName="visitedLocationId" placeholder="Enter Visited location ID">
+            </div>
+            <div class="form-group">
+                <label for="locationId">Location ID</label>
+                <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3" *ngIf="updatedVisitedLocation">
+            <div class="card-header">id: {{updatedVisitedLocation.id}}</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">dateTimeOfVisitLocation: {{updatedVisitedLocation.dateTimeOfVisitLocationPoint}}</li>
+                <li class="list-group-item">locationId: {{updatedVisitedLocation.locationPointId}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Delete an Visited location</h3>
+        <form [formGroup]="deleteForm" (ngSubmit)="deleteVisitedLocation()">
+            <div class="form-group">
+                <label for="visitedLocationId">ID</label>
+                <input type="number" class="form-control" id="visitedLocationId" formControlName="visitedLocationId" placeholder="Enter Visited location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="alert alert-success mt-3" role="alert" *ngIf="isVisitedLocationDeleted">
+                Visited location has been deleted!
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="container d-flex">
+    <div class="container border p-4">
+        <h3>Get a Location</h3>
+        <form [formGroup]="locationFindForm" (ngSubmit)="findLocation()">
+            <div class="form-group">
+                <label for="locationId">ID</label>
+                <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
+            </div>
+            <button [disabled]="locationFindForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3" *ngIf="foundedLocation">
+            <div class="card-header">id: {{foundedLocation.id}}</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">latitude: {{foundedLocation.latitude}}</li>
+                <li class="list-group-item">longitude: {{foundedLocation.longitude}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Add a Location</h3>
+        <form [formGroup]="locationAddForm" (ngSubmit)="addLocation()">
+            <div class="form-group">
+                <label for="latitude">latitude</label>
+                <input type="number" class="form-control" id="latitude" formControlName="latitude" placeholder="Enter Location latitude">
+            </div>
+            <div class="form-group">
+                <label for="longitude">longitude</label>
+                <input type="number" class="form-control" id="longitude" formControlName="longitude" placeholder="Enter Location longitude">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3" *ngIf="createdLocation">
+            <div class="card-header">id: {{createdLocation.id}}</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">latitude: {{createdLocation.latitude}}</li>
+                <li class="list-group-item">longitude: {{createdLocation.longitude}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Update an Location</h3>
+        <form [formGroup]="locationUpdateForm" (ngSubmit)="updateLocation()">
+            <div class="form-group">
+                <label for="locationId">ID</label>
+                <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
+            </div>
+            <div class="form-group">
+                <label for="latitude">latitude</label>
+                <input type="number" class="form-control" id="latitude" formControlName="latitude" placeholder="Enter Location latitude">
+            </div>
+            <div class="form-group">
+                <label for="longitude">longitude</label>
+                <input type="number" class="form-control" id="longitude" formControlName="longitude" placeholder="Enter Location longitude">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div class="card mt-3" *ngIf="updatedLocation">
+            <div class="card-header">id: {{updatedLocation.id}}</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">latitude: {{updatedLocation.latitude}}</li>
+                <li class="list-group-item">longitude: {{updatedLocation.longitude}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container border p-4">
+        <h3>Delete an Location</h3>
+        <form [formGroup]="locationDeleteForm" (ngSubmit)="deleteLocation()">
+            <div class="form-group">
+                <label for="locationId">ID</label>
+                <input type="number" class="form-control" id="locationId" formControlName="locationId" placeholder="Enter Location ID">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="alert alert-success mt-3" role="alert" *ngIf="isLocationDeleted">
+                Location has been deleted!
+            </div>
+        </form>
+    </div>
+</div>
