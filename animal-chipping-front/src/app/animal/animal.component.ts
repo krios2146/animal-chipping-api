@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AnimalService } from '../service/animal.service';
 import { AnimalRequest } from '../model/animal/animal-request';
 import { AnimalResponse } from '../model/animal/animal-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AnimalCreateRequest } from '../model/animal/animal-create-request';
 import { AnimalUpdateRequest } from '../model/animal/animal-update-request';
+import { Gender } from '../model/animal/enum/gender.enum';
+import { LifeStatus } from '../model/animal/enum/life-status.enum';
 
 @Component({
   selector: 'app-animal',
@@ -32,10 +34,10 @@ export class AnimalComponent {
       weight: [null, [Validators.required, Validators.min(1)]],
       length: [null, [Validators.required, Validators.min(1)]],
       height: [null, [Validators.required, Validators.min(1)]],
-      gender: [null, [Validators.required]],
+      gender: [null, [Validators.required, this.enumValidator(Gender)]],
       chipperId: [null, [Validators.required, Validators.min(1)]],
       chippingLocationId: [null, [Validators.required, Validators.min(1)]],
-      animalTypes: [null, [Validators.required]]
+      animalTypes: [null, [Validators.required, Validators.min(1)]]
     });
 
     this.updateForm = this.formBuilder.group({
@@ -43,10 +45,10 @@ export class AnimalComponent {
       weight: [null, [Validators.required, Validators.min(1)]],
       length: [null, [Validators.required, Validators.min(1)]],
       height: [null, [Validators.required, Validators.min(1)]],
-      gender: [null, [Validators.required]],
+      gender: [null, [Validators.required, this.enumValidator(Gender)]],
       chipperId: [null, [Validators.required, Validators.min(1)]],
       chippingLocationId: [null, [Validators.required, Validators.min(1)]],
-      lifeStatus: [null, [Validators.required]]
+      lifeStatus: [null, [Validators.required, this.enumValidator(LifeStatus)]]
     });
 
     this.deleteForm = this.formBuilder.group({
@@ -125,6 +127,14 @@ export class AnimalComponent {
       gender : animalform.get('gender')?.value,
       chipperId : animalform.get('chipperId')?.value,
       chippingLocationId : animalform.get('chippingLocationId')?.value
+    };
+  }
+
+  private enumValidator(enumRef: any): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+      const isValid = Object.values(enumRef).includes(value);
+      return isValid ? null : { enum: { invalidValue: value } };
     };
   }
 }
