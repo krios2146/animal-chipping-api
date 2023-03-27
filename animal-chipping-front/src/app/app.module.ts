@@ -14,6 +14,7 @@ import { LocationViewComponent } from './location-view/location-view.component';
 import { AccountViewComponent } from './account-view/account-view.component';
 import { VisitedLocationViewComponent } from './visited-location-view/visited-location-view.component';
 import { AnimalTypeViewComponent } from './animal-type-view/animal-type-view.component';
+import { AnimalViewComponent } from './animal-view/animal-view.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AnimalTypeViewComponent } from './animal-type-view/animal-type-view.com
     LocationViewComponent,
     AccountViewComponent,
     VisitedLocationViewComponent,
-    AnimalTypeViewComponent
+    AnimalTypeViewComponent,
+    AnimalViewComponent
   ],
   imports: [
     BrowserModule,
