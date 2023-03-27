@@ -43,13 +43,6 @@
                         </div>
                         <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="createdLocation">
-                        <div class="card-header">id: {{createdLocation.id}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">latitude: {{createdLocation.latitude}}</li>
-                            <li class="list-group-item">longitude: {{createdLocation.longitude}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -81,13 +74,6 @@
                         </div>
                         <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="updatedLocation">
-                        <div class="card-header">id: {{updatedLocation.id}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">latitude: {{updatedLocation.latitude}}</li>
-                            <li class="list-group-item">longitude: {{updatedLocation.longitude}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
