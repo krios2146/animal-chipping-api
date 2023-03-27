@@ -15,6 +15,8 @@ export class VisitedLocationComponent {
   updateForm: FormGroup;
   deleteForm: FormGroup;
 
+  activeTab: string | undefined;
+
   addedVisitedLocation: VisitedLocationResponse | undefined;
   updatedVisitedLocation: VisitedLocationResponse | undefined;
   isVisitedLocationDeleted: boolean = false;
@@ -79,6 +81,17 @@ export class VisitedLocationComponent {
         alert(error.message);
       }
     );
+  }
+
+  setActiveTab(tabName: string) {
+    if (this.activeTab === tabName) {
+      this.activeTab = undefined;
+      return;
+    }
+
+    this.activeTab = tabName;
+
+    console.log(this.activeTab);
   }
 
   private getRequestFromForm(visitedLocationForm: FormGroup): VisitedLocationRequest {
