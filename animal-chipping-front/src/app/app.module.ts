@@ -11,6 +11,7 @@ import { VisitedLocationComponent } from './visited-location/visited-location.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationViewComponent } from './location-view/location-view.component';
+import { AccountViewComponent } from './account-view/account-view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LocationViewComponent } from './location-view/location-view.component';
     AnimalTypeComponent,
     LocationComponent,
     VisitedLocationComponent,
-    LocationViewComponent
+    LocationViewComponent,
+    AccountViewComponent
   ],
   imports: [
     BrowserModule,
