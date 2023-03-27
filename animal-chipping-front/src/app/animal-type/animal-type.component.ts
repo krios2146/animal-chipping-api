@@ -16,6 +16,8 @@ export class AnimalTypeComponent {
   updateForm: FormGroup;
   deleteForm: FormGroup;
 
+  activeTab: string | undefined;
+
   foundedAnimalType: AnimalTypeResponse | undefined;
   addedAnimalType: AnimalTypeResponse | undefined;
   updatedAnimalType: AnimalTypeResponse | undefined;
@@ -93,6 +95,17 @@ export class AnimalTypeComponent {
         alert(error.message);
       }
     );
+  }
+
+  setActiveTab(tabName: string) {
+    if (this.activeTab === tabName) {
+      this.activeTab = undefined;
+      return;
+    }
+
+    this.activeTab = tabName;
+
+    console.log(this.activeTab);
   }
 
   private getRequestFromForm(animalTypeForm: FormGroup): AnimalTypeRequest {

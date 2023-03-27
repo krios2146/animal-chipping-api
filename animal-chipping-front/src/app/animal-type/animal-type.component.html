@@ -2,12 +2,12 @@
     <div class="accordion w-50" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    Get an Animal type
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="false" aria-controls="collapseOne" (click)="setActiveTab('FIND')">
+                    Find an Animal type
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <form [formGroup]="findForm" (ngSubmit)="findAnimalType()">
                         <div class="form-floating my-3">
@@ -17,19 +17,13 @@
                         </div>
                         <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="foundedAnimalType">
-                        <div class="card-header">id: {{foundedAnimalType.id}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">type: {{foundedAnimalType.type}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="setActiveTab('ADD')">
                     Add an Animal type
                 </button>
             </h2>
@@ -43,19 +37,13 @@
                         </div>
                         <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="addedAnimalType">
-                        <div class="card-header">id: {{addedAnimalType.id}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">type: {{addedAnimalType.type}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="setActiveTab('UPDATE')">
                     Update an Animal type
                 </button>
             </h2>
@@ -74,19 +62,13 @@
                         </div>
                         <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="updatedAnimalType">
-                        <div class="card-header">id: {{updatedAnimalType.id}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">type: {{updatedAnimalType.type}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="setActiveTab('DELETE')">
                     Delete an Animal type
                 </button>
             </h2>
@@ -99,12 +81,13 @@
                             <label for="typeId">ID</label>
                         </div>
                         <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
-                        <div class="alert alert-success mt-3" role="alert" *ngIf="isAnimalTypeDeleted">
-                            Animal has been deleted!
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <app-animal-type-view class="w-50" [animalType]="foundedAnimalType" *ngIf="activeTab === 'FIND'"></app-animal-type-view>
+    <app-animal-type-view class="w-50" [animalType]="addedAnimalType" *ngIf="activeTab === 'ADD'"></app-animal-type-view>
+    <app-animal-type-view class="w-50" [animalType]="updatedAnimalType" *ngIf="activeTab === 'UPDATE'"></app-animal-type-view>
+    <app-animal-type-view class="w-50" [isAnimalTypeDeleted]="isAnimalTypeDeleted" *ngIf="activeTab === 'DELETE'"></app-animal-type-view>
 </div>
