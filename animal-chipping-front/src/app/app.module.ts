@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationViewComponent } from './location-view/location-view.component';
 import { AccountViewComponent } from './account-view/account-view.component';
+import { VisitedLocationViewComponent } from './visited-location-view/visited-location-view.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AccountViewComponent } from './account-view/account-view.component';
     LocationComponent,
     VisitedLocationComponent,
     LocationViewComponent,
-    AccountViewComponent
+    AccountViewComponent,
+    VisitedLocationViewComponent
   ],
   imports: [
     BrowserModule,
