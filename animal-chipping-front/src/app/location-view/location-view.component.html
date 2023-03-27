@@ -1,1 +1,21 @@
-<p>location-view works!</p>
+<table class="table" *ngIf="location">
+    <thead>
+        <tr>
+            <th colspan="2" scope="col">Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">ID</td>
+            <td>{{location.id}}</td>
+        </tr>
+        <tr>
+            <td scope="row">latitude</td>
+            <td>{{location.latitude}}</td>
+        </tr>
+        <tr>
+            <td scope="row">longitude</td>
+            <td>{{location.longitude}}</td>
+        </tr>
+    </tbody>
+</table>
