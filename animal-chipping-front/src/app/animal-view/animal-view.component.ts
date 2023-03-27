@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AnimalResponse } from '../model/animal/animal-response';
 
 @Component({
   selector: 'app-animal-view',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./animal-view.component.css']
 })
 export class AnimalViewComponent {
-
+  @Input() animal: AnimalResponse | undefined;
+  @Input() isAnimalDeleted: boolean = false;
 }

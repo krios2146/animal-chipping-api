@@ -20,6 +20,8 @@ export class AnimalComponent {
   updateForm: FormGroup;
   deleteForm: FormGroup;
 
+  activeTab: string | undefined;
+
   foundedAnimal: AnimalResponse | undefined;
   addedAnimal: AnimalResponse | undefined;
   updatedAnimal: AnimalResponse | undefined;
@@ -117,6 +119,17 @@ export class AnimalComponent {
         alert(error.message);
       }
     );
+  }
+
+  setActiveTab(tabName: string) {
+    if (this.activeTab === tabName) {
+      this.activeTab = undefined;
+      return;
+    }
+
+    this.activeTab = tabName;
+
+    console.log(this.activeTab);
   }
 
   private getRequestFromForm(animalform: FormGroup): AnimalRequest {

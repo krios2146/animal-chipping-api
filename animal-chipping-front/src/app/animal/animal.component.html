@@ -2,12 +2,12 @@
     <div class="accordion w-50" id="animalAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    Get an Animal
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="false" aria-controls="collapseOne" (click)="setActiveTab('FIND')">
+                    Find an Animal
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#animalAccordion">
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#animalAccordion">
                 <div class="accordion-body">
                     <form [formGroup]="findForm" (ngSubmit)="findAnimal()">
                         <div class="form-floating my-3">
@@ -17,29 +17,13 @@
                         </div>
                         <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="foundedAnimal">
-                        <div class="card-header">id: {{foundedAnimal}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">animalTypes: {{foundedAnimal.animalTypes}}</li>
-                            <li class="list-group-item">weight: {{foundedAnimal.weight}}</li>
-                            <li class="list-group-item">length: {{foundedAnimal.length}}</li>
-                            <li class="list-group-item">height: {{foundedAnimal.height}}</li>
-                            <li class="list-group-item">gender: {{foundedAnimal.gender}}</li>
-                            <li class="list-group-item">lifeStatus: {{foundedAnimal.lifeStatus}}</li>
-                            <li class="list-group-item">chippingDateTime: {{foundedAnimal.chippingDateTime}}</li>
-                            <li class="list-group-item">chipperId: {{foundedAnimal.chipperId}}</li>
-                            <li class="list-group-item">chippingLocationId: {{foundedAnimal.chippingLocationId}}</li>
-                            <li class="list-group-item">visitedLocations: {{foundedAnimal.visitedLocations}}</li>
-                            <li class="list-group-item">deathDateTime: {{foundedAnimal.deathDateTime}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="setActiveTab('ADD')">
                     Add an Animal
                 </button>
             </h2>
@@ -83,29 +67,13 @@
                         </div>
                         <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="addedAnimal">
-                        <div class="card-header">id: {{addedAnimal}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">animalTypes: {{addedAnimal.animalTypes}}</li>
-                            <li class="list-group-item">weight: {{addedAnimal.weight}}</li>
-                            <li class="list-group-item">length: {{addedAnimal.length}}</li>
-                            <li class="list-group-item">height: {{addedAnimal.height}}</li>
-                            <li class="list-group-item">gender: {{addedAnimal.gender}}</li>
-                            <li class="list-group-item">lifeStatus: {{addedAnimal.lifeStatus}}</li>
-                            <li class="list-group-item">chippingDateTime: {{addedAnimal.chippingDateTime}}</li>
-                            <li class="list-group-item">chipperId: {{addedAnimal.chipperId}}</li>
-                            <li class="list-group-item">chippingLocationId: {{addedAnimal.chippingLocationId}}</li>
-                            <li class="list-group-item">visitedLocations: {{addedAnimal.visitedLocations}}</li>
-                            <li class="list-group-item">deathDateTime: {{addedAnimal.deathDateTime}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="setActiveTab('UPDATE')">
                     Update an Animal
                 </button>
             </h2>
@@ -154,29 +122,13 @@
                         </div>
                         <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="updatedAnimal">
-                        <div class="card-header">id: {{updatedAnimal}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">animalTypes: {{updatedAnimal.animalTypes}}</li>
-                            <li class="list-group-item">weight: {{updatedAnimal.weight}}</li>
-                            <li class="list-group-item">length: {{updatedAnimal.length}}</li>
-                            <li class="list-group-item">height: {{updatedAnimal.height}}</li>
-                            <li class="list-group-item">gender: {{updatedAnimal.gender}}</li>
-                            <li class="list-group-item">lifeStatus: {{updatedAnimal.lifeStatus}}</li>
-                            <li class="list-group-item">chippingDateTime: {{updatedAnimal.chippingDateTime}}</li>
-                            <li class="list-group-item">chipperId: {{updatedAnimal.chipperId}}</li>
-                            <li class="list-group-item">chippingLocationId: {{updatedAnimal.chippingLocationId}}</li>
-                            <li class="list-group-item">visitedLocations: {{updatedAnimal.visitedLocations}}</li>
-                            <li class="list-group-item">deathDateTime: {{updatedAnimal.deathDateTime}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="setActiveTab('DELETE')">
                     Delete an Animal
                 </button>
             </h2>
@@ -189,12 +141,13 @@
                             <label for="animalId">ID</label>
                         </div>
                         <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
-                        <div class="alert alert-success mt-3" role="alert" *ngIf="isAnimalDeleted">
-                            Animal has been deleted!
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <app-animal-view class="w-50" [animal]="foundedAnimal" *ngIf="activeTab === 'FIND'"></app-animal-view>
+    <app-animal-view class="w-50" [animal]="addedAnimal" *ngIf="activeTab === 'ADD'"></app-animal-view>
+    <app-animal-view class="w-50" [animal]="updatedAnimal" *ngIf="activeTab === 'UPDATE'"></app-animal-view>
+    <app-animal-view class="w-50" [isAnimalDeleted]="isAnimalDeleted" *ngIf="activeTab === 'DELETE'"></app-animal-view>
 </div>

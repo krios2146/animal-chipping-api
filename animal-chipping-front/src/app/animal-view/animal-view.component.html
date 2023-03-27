@@ -1,1 +1,60 @@
-<p>animal-view works!</p>
+<table class="table" *ngIf="animal">
+    <thead>
+        <tr>
+            <th colspan="3" scope="col">Animal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">ID</td>
+            <td>{{animal.id}}</td>
+        </tr>
+        <tr>
+            <td scope="row">animalTypes</td>
+            <td>{{animal.animalTypes}}</td>
+        </tr>
+        <tr>
+            <td scope="row">weight</td>
+            <td>{{animal.weight}}</td>
+        </tr>
+        <tr>
+            <td scope="row">length</td>
+            <td>{{animal.length}}</td>
+        </tr>
+        <tr>
+            <td scope="row">height</td>
+            <td>{{animal.height}}</td>
+        </tr>
+        <tr>
+            <td scope="row">gender</td>
+            <td>{{animal.gender}}</td>
+        </tr>
+        <tr>
+            <td scope="row">lifeStatus</td>
+            <td>{{animal.lifeStatus}}</td>
+        </tr>
+        <tr>
+            <td scope="row">chippingDateTime</td>
+            <td>{{animal.chippingDateTime}}</td>
+        </tr>
+        <tr>
+            <td scope="row">chipperId</td>
+            <td>{{animal.chipperId}}</td>
+        </tr>
+        <tr>
+            <td scope="row">chippingLocationId</td>
+            <td>{{animal.chippingLocationId}}</td>
+        </tr>
+        <tr>
+            <td scope="row">visitedLocations</td>
+            <td>{{animal.visitedLocations}}</td>
+        </tr>
+        <tr>
+            <td scope="row">deathDateTime</td>
+            <td>{{animal.deathDateTime}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-success" role="alert" *ngIf="isAnimalDeleted">
+    Animal has been deleted!
+</div>
