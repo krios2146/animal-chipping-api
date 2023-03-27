@@ -10,6 +10,7 @@ import { LocationComponent } from './location/location.component';
 import { VisitedLocationComponent } from './visited-location/visited-location.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LocationViewComponent } from './location-view/location-view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     AnimalComponent,
     AnimalTypeComponent,
     LocationComponent,
-    VisitedLocationComponent
+    VisitedLocationComponent,
+    LocationViewComponent
   ],
   imports: [
     BrowserModule,

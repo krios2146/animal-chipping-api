@@ -1,13 +1,13 @@
 <div class="container d-flex">
-    <div class="accordion w-50" id="accordionExample">
+    <div class="accordion w-50 mx-3" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    Get a Location
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="false" aria-controls="collapseOne" (click)="setActiveTab('FIND')">
+                    Find a Location
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <form [formGroup]="findForm" (ngSubmit)="findLocation()">
                         <div class="form-floating my-3">
@@ -17,20 +17,14 @@
                         </div>
                         <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="card mt-3" *ngIf="foundedLocation">
-                        <div class="card-header">id: {{foundedLocation.id}}</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">latitude: {{foundedLocation.latitude}}</li>
-                            <li class="list-group-item">longitude: {{foundedLocation.longitude}}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                    (click)="setActiveTab('ADD')">
                     Add a Location
                 </button>
             </h2>
@@ -62,8 +56,9 @@
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Update an Location
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                    (click)="setActiveTab('UPDATE')">
+                    Update a Location
                 </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -99,8 +94,9 @@
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Delete an Location
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"
+                    (click)="setActiveTab('DELETE')">
+                    Delete a Location
                 </button>
             </h2>
             <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -120,4 +116,8 @@
             </div>
         </div>
     </div>
+    <app-location-view class="w-50" [location]="foundedLocation" *ngIf="activeTab === 'FIND'"></app-location-view>
+    <app-location-view class="w-50" [location]="createdLocation" *ngIf="activeTab === 'ADD'"></app-location-view>
+    <app-location-view class="w-50" [location]="updatedLocation" *ngIf="activeTab === 'UPDATE'"></app-location-view>
+    <app-location-view class="w-50" [isLocationDeleted]="isLocationDeleted" *ngIf="activeTab === 'DELETE'"></app-location-view>
 </div>

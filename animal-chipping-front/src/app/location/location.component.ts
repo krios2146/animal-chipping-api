@@ -16,6 +16,8 @@ export class LocationComponent {
   updateForm: FormGroup;
   deleteForm: FormGroup;
 
+  activeTab: string | undefined;
+
   foundedLocation: LocationResponse | undefined;
   createdLocation: LocationResponse | undefined;
   updatedLocation: LocationResponse | undefined;
@@ -96,6 +98,17 @@ export class LocationComponent {
         alert(error.message);
       }
     );
+  }
+
+  setActiveTab(tabName: string) {
+    if (this.activeTab === tabName) {
+      this.activeTab = undefined;
+      return;
+    }
+
+    this.activeTab = tabName;
+
+    console.log(this.activeTab);
   }
 
   private getRequestFromForm(locationForm: FormGroup): LocationRequest {
