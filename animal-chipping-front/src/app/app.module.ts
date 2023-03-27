@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LocationViewComponent } from './location-view/location-view.component';
 import { AccountViewComponent } from './account-view/account-view.component';
 import { VisitedLocationViewComponent } from './visited-location-view/visited-location-view.component';
+import { AnimalTypeViewComponent } from './animal-type-view/animal-type-view.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { VisitedLocationViewComponent } from './visited-location-view/visited-lo
     VisitedLocationComponent,
     LocationViewComponent,
     AccountViewComponent,
-    VisitedLocationViewComponent
+    VisitedLocationViewComponent,
+    AnimalTypeViewComponent
   ],
   imports: [
     BrowserModule,
