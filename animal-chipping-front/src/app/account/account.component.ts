@@ -15,6 +15,8 @@ export class AccountComponent {
   updateForm: FormGroup;
   deleteForm: FormGroup;
 
+  activeTab: string | undefined;
+
   foundedAccount: AccountResponse | undefined;
   updatedAccount: AccountResponse | undefined;
   isAccountDeleted: boolean = false;
@@ -78,6 +80,17 @@ export class AccountComponent {
         alert(error.message);
       }
     );
+  }
+
+  setActiveTab(tabName: string) {
+    if (this.activeTab === tabName) {
+      this.activeTab = undefined;
+      return;
+    }
+
+    this.activeTab = tabName;
+
+    console.log(this.activeTab);
   }
 
   private getRequestFromForm(locationForm: FormGroup): AccountRequest {

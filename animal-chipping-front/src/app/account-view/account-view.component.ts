@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AccountResponse } from '../model/account/account-response';
 
 @Component({
   selector: 'app-account-view',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-view.component.css']
 })
 export class AccountViewComponent {
-
+  @Input() account: AccountResponse | undefined;
+  @Input() isAccountDeleted: boolean = false;
 }
