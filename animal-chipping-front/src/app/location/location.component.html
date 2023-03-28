@@ -100,7 +100,7 @@
         </div>
     </div>
     <app-location-view class="w-50" [location]="foundedLocation" *ngIf="activeTab === 'FIND'"></app-location-view>
-    <app-location-view class="w-50" [location]="createdLocation" *ngIf="activeTab === 'ADD'"></app-location-view>
+    <app-location-view class="w-50" [location]="addedLocation" *ngIf="activeTab === 'ADD'"></app-location-view>
     <app-location-view class="w-50" [location]="updatedLocation" *ngIf="activeTab === 'UPDATE'"></app-location-view>
     <app-location-view class="w-50" [isLocationDeleted]="isLocationDeleted" *ngIf="activeTab === 'DELETE'"></app-location-view>
 </div>

@@ -19,7 +19,7 @@ export class LocationComponent {
   activeTab: string | undefined;
 
   foundedLocation: LocationResponse | undefined;
-  createdLocation: LocationResponse | undefined;
+  addedLocation: LocationResponse | undefined;
   updatedLocation: LocationResponse | undefined;
   isLocationDeleted: boolean = false;
 
@@ -61,7 +61,7 @@ export class LocationComponent {
     const request: LocationRequest = this.getRequestFromForm(this.addForm);
     this.locationService.createLocation(request).subscribe(
       (response: LocationResponse) => {
-        this.createdLocation = response;
+        this.addedLocation = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
