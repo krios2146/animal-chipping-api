@@ -17,6 +17,10 @@ export class AccountService {
     return this.http.get<AccountResponse>(`${this.apiUrl}/${accountId}`);
   }
 
+  createAccount(accountRequest: AccountRequest): Observable<AccountResponse> {
+    return this.http.post<AccountResponse>("http://localhost:8080/registration", accountRequest);
+  }
+
   updateAccount(accountId: number, updatedAccount: AccountRequest): Observable<AccountResponse> {
     return this.http.put<AccountResponse>(`${this.apiUrl}/${accountId}`, updatedAccount);
   }
