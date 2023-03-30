@@ -74,8 +74,9 @@ export class AnimalComponent {
     const request: AnimalRequest = this.getRequestFromForm(this.addForm);
     const addRequest: AnimalCreateRequest = {
       ...request,
-      animalTypes: this.addForm.get('animalTypes')?.value
+      animalTypes: [this.addForm.get('animalTypes')?.value]
     }
+    console.log(addRequest);
     this.animalService.createAnimal(addRequest).subscribe(
       (response: AnimalResponse) => {
         this.addedAnimal = response;
