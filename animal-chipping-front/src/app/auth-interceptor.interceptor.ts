@@ -8,11 +8,12 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthInterceptorInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
 
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+    const authReq = request.clone({ setHeaders: { Authorization: 'Basic ' + btoa("root@email.com:root") } });
+    return next.handle(authReq);
   }
 }
