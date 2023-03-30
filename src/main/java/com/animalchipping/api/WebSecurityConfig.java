@@ -22,4 +22,9 @@ public class WebSecurityConfig {
                 .and()
                 .build();
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 }
