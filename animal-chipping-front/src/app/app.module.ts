@@ -16,7 +16,7 @@ import { VisitedLocationViewComponent } from './visited-location-view/visited-lo
 import { AnimalTypeViewComponent } from './animal-type-view/animal-type-view.component';
 import { AnimalViewComponent } from './animal-view/animal-view.component';
 import { JsonViewComponent } from './json-view/json-view.component';
-import { AuthInterceptor } from './auth-interceptor.interceptor';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
