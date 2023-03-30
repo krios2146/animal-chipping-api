@@ -12,18 +12,27 @@ import { AccountRequest } from '../model/account/account-request';
 })
 export class AccountComponent {
   findForm: FormGroup;
+  addForm: FormGroup;
   updateForm: FormGroup;
   deleteForm: FormGroup;
 
   activeTab: string | undefined;
 
   foundedAccount: AccountResponse | undefined;
+  addedAccount: AccountResponse | undefined;
   updatedAccount: AccountResponse | undefined;
   isAccountDeleted: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
     this.findForm = this.formBuilder.group({
       accountId: [null, [Validators.required, Validators.min(1)]],
+    });
+
+    this.addForm = this.formBuilder.group({
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, Validators.required]
     });
 
     this.updateForm = this.formBuilder.group({
@@ -49,6 +58,17 @@ export class AccountComponent {
         alert(error.message);
       }
     )
+  }
+
+  addAccount() {
+    this.accountService.createAccount(this.addForm.value).subscribe(
+      (response: AccountResponse) => {
+        this.addedAccount = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   updateAccount() {
