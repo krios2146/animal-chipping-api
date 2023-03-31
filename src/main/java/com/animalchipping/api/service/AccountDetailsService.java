@@ -1,4 +1,4 @@
-package com.animalchipping.api;
+package com.animalchipping.api.service;
 
 import com.animalchipping.api.entity.Account;
 import com.animalchipping.api.repository.AccountRepository;
