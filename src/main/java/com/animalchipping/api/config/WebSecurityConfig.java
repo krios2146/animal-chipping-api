@@ -1,4 +1,4 @@
-package com.animalchipping.api;
+package com.animalchipping.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
