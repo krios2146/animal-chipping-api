@@ -20,6 +20,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/registration").permitAll()
+                // front-end pages
+                .requestMatchers("/", "/home", "/account", "/animal", "/animal-type", "/location", "/visited-location").permitAll()
+                // static resources like .html and .js
+                .requestMatchers("/**.**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic().realmName("api")
