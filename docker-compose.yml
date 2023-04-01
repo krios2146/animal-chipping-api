@@ -1,7 +1,6 @@
 version: '3.9'
 
 services:
-  # Сервис для разворачивания контейнера с базой данных
   database:
     image: postgres:latest
     volumes:
@@ -11,15 +10,8 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
 
-
-  # Сервис для разворачивания контейнера с приложением
-  webapi:
-    build:
-      context: .
-      args:
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/animal-chipization
-        - POSTGRES_USER=user
-        - POSTGRES_PASSWORD=password
+  api-backend:
+    image: krios2146/animal-chipping-api:api-backend
     ports:
       - "8080:8080"
     depends_on:
