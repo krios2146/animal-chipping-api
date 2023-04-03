@@ -11,7 +11,7 @@ on:
 
 jobs:
   backend-image:
-    if: ${{ contains(github.event.paths, 'Dockerfile') }}
+    if: ${{ contains(github.event.paths, 'Dockerfile') || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +25,7 @@ jobs:
         run: docker push krios2146/animal-chipping-api:api-backend
   
   frontend-image:
-    if: ${{ contains(github.event.paths, '/animal-chipping-front/Dockerfile') }}
+    if: ${{ contains(github.event.paths, '/animal-chipping-front/Dockerfile') || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v3
