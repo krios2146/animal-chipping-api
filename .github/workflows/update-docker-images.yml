@@ -1,0 +1,38 @@
+name: Update Docker images
+
+on:
+  push:
+    branches: 
+      - "master"
+    paths:
+      - "Dockerfile"
+      - "/animal-chipping-front/Dockerfile"
+
+jobs:
+  backend-image:
+    if: ${{ contains(github.event.paths, 'Dockerfile') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build a backend Docker image
+        run: docker build . --tag api-backend --no-cache
+      - name: Login to a docker registry
+        run: docker login -u krios2146 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      - name: Tag the local image to a remote image
+        run: docker tag api-backend krios2146/animal-chipping-api:api-backend
+      - name: Push the image to a registry
+        run: docker push krios2146/animal-chipping-api:api-backend
+  
+  frontend-image:
+    if: ${{ contains(github.event.paths, '/animal-chipping-front/Dockerfile') }}
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Build a frontend Docker image
+        run: docker build . --tag api-frontend --no-cache
+      - name: Login to a docker registry
+        run: docker login -u krios2146 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      - name: Tag the local image to a remote image
+        run: docker tag api-frontend krios2146/animal-chipping-api:api-frontend
+      - name: Push the image to a registry
+        run: docker push krios2146/animal-chipping-api:api-frontend
