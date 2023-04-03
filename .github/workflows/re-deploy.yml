@@ -7,15 +7,14 @@ jobs:
   ssh:
     runs-on: ubuntu-latest
     steps:
-      - name: Install SSH client and sshpass
-        run: sudo apt-get update && sudo apt-get install -y openssh-client sshpass
-      - name: Connect to a host
-        run: sshpass -p ${{ secrets.SSH_PASSWORD }} ssh root@78.153.130.215 /bin/bash
-      - name: Stop the app
-        run: |
-          cd animal-chipping-api && 
-          docker-compose down
-      - name: Delete old Docker images
-        run: docker rmi krios2146/animal-chipping-api:api-frontend krios2146/animal-chipping-api:api-backend -f
-      - name: Up the app with new images
-        run: docker-compose up
+      - name: ssh-pipeline
+        uses: cross-the-world/ssh-pipeline@v1.2.0
+        with:
+          host: 78.153.130.215
+          user: root
+          pass: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd animal-chipping-api && 
+            docker-compose down
+            docker rmi krios2146/animal-chipping-api:api-frontend krios2146/animal-chipping-api:api-backend -f
+            docker-compose up
