@@ -7,6 +7,7 @@ on:
     paths:
       - "Dockerfile"
       - "/animal-chipping-front/Dockerfile"
+  workflow_dispatch:
 
 jobs:
   backend-image:
