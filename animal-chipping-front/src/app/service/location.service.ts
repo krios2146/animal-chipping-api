@@ -8,7 +8,7 @@ import { LocationRequest } from '../model/location/location-request';
     providedIn: 'root',
 })
 export class LocationService {
-    private apiUrl = 'http://localhost:8080/locations';
+    private apiUrl = 'http://api-backend:8080/locations';
 
     constructor(private http: HttpClient) { }
 

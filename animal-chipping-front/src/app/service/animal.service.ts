@@ -9,7 +9,7 @@ import { AnimalUpdateRequest } from '../model/animal/animal-update-request';
   providedIn: 'root',
 })
 export class AnimalService {
-  private apiUrl = 'http://localhost:8080/animals';
+  private apiUrl = 'http://api-backend:8080/animals';
 
   constructor(private http: HttpClient) {}
 
