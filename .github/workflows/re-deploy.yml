@@ -10,7 +10,7 @@ jobs:
       - name: Install SSH client and sshpass
         run: sudo apt-get update && sudo apt-get install -y openssh-client sshpass
       - name: Connect to a host
-        run: sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -tt root@78.153.130.215
+        run: sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh root@78.153.130.215 /bin/bash
       - name: Stop the app
         run: |
           cd animal-chipping-api && 
