@@ -9,7 +9,7 @@ import { VisitedLocationRequest } from '../model/visited-location/visited-locati
   providedIn: 'root'
 })
 export class VisitedLocationService {
-  private apiUrl = 'http://0.0.0.0:8080/animals';
+  private apiUrl = 'http://78.153.130.215:8080/animals';
 
   constructor(private http: HttpClient) { }
 

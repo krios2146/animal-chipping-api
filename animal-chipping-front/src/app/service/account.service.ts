@@ -9,7 +9,7 @@ import { AccountResponse } from '../model/account/account-response';
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = 'http://0.0.0.0:8080/accounts';
+  private apiUrl = 'http://78.153.130.215:8080/accounts';
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class AccountService {
   }
 
   createAccount(accountRequest: AccountRequest): Observable<AccountResponse> {
-    return this.http.post<AccountResponse>("http://0.0.0.0:8080/registration", accountRequest);
+    return this.http.post<AccountResponse>("http://78.153.130.215:8080/registration", accountRequest);
   }
 
   updateAccount(accountId: number, updatedAccount: AccountRequest): Observable<AccountResponse> {

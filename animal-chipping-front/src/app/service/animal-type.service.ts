@@ -8,7 +8,7 @@ import { AnimalTypeResponse } from '../model/animal-type/animal-type-response';
   providedIn: 'root',
 })
 export class AnimalTypeService {
-  private apiUrl = 'http://0.0.0.0:8080/animals/types';
+  private apiUrl = 'http://78.153.130.215:8080/animals/types';
 
   constructor(private http: HttpClient) { }
 
