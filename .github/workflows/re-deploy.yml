@@ -15,6 +15,7 @@ jobs:
             docker-compose down
             docker rmi krios2146/animal-chipping-api:api-frontend krios2146/animal-chipping-api:api-backend -f
             docker-compose up
+            exit
           host: 78.153.130.215
           username: root
           password: ${{ secrets.SSH_PASSWORD }}
