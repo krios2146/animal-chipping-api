@@ -1,4 +1,4 @@
-name: Execute SSH commands
+name: Rebuild app
 
 on:
   workflow_dispatch:
