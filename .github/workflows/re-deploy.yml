@@ -7,14 +7,14 @@ jobs:
   ssh:
     runs-on: ubuntu-latest
     steps:
-      - name: ssh-pipeline
-        uses: cross-the-world/ssh-pipeline@v1.2.0
+      - name: Run Commands via SSH
+        uses: Flaavius/ssh-commands@1.0
         with:
-          host: 78.153.130.215
-          user: root
-          pass: ${{ secrets.SSH_PASSWORD }}
-          script: |
+          command: |
             cd animal-chipping-api && 
             docker-compose down
             docker rmi krios2146/animal-chipping-api:api-frontend krios2146/animal-chipping-api:api-backend -f
             docker-compose up
+          host: 78.153.130.215
+          username: root
+          password: ${{ secrets.SSH_PASSWORD }}
