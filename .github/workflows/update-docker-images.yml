@@ -30,7 +30,9 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - name: Build a frontend Docker image
-        run: docker build . --tag api-frontend --no-cache
+        run: |
+          cd animal-chipping-front &&
+          docker build . --tag api-frontend --no-cache
       - name: Login to a docker registry
         run: docker login -u krios2146 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
       - name: Tag the local image to a remote image
