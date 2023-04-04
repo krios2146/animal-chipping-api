@@ -1,7 +1,7 @@
 <table class="table table-borderless" *ngIf="animal">
     <thead>
         <tr>
-            <th colspan="3" scope="col">Animal</th>
+            <th colspan="3" scope="col">Животное</th>
         </tr>
     </thead>
     <tbody>
@@ -10,52 +10,52 @@
             <td>{{animal.id}}</td>
         </tr>
         <tr>
-            <td scope="row">animalTypes</td>
+            <td scope="row">Тип животного</td>
             <td>{{animal.animalTypes}}</td>
         </tr>
         <tr>
-            <td scope="row">weight</td>
+            <td scope="row">Вес</td>
             <td>{{animal.weight}}</td>
         </tr>
         <tr>
-            <td scope="row">length</td>
+            <td scope="row">Длина</td>
             <td>{{animal.length}}</td>
         </tr>
         <tr>
-            <td scope="row">height</td>
+            <td scope="row">Высота</td>
             <td>{{animal.height}}</td>
         </tr>
         <tr>
-            <td scope="row">gender</td>
+            <td scope="row">Пол</td>
             <td>{{animal.gender}}</td>
         </tr>
         <tr>
-            <td scope="row">lifeStatus</td>
+            <td scope="row">Жизненный статус</td>
             <td>{{animal.lifeStatus}}</td>
         </tr>
         <tr>
-            <td scope="row">chippingDateTime</td>
+            <td scope="row">Время чипирования</td>
             <td>{{animal.chippingDateTime}}</td>
         </tr>
         <tr>
-            <td scope="row">chipperId</td>
+            <td scope="row">ID владельца</td>
             <td>{{animal.chipperId}}</td>
         </tr>
         <tr>
-            <td scope="row">chippingLocationId</td>
+            <td scope="row">ID локации чипирования</td>
             <td>{{animal.chippingLocationId}}</td>
         </tr>
         <tr>
-            <td scope="row">visitedLocations</td>
+            <td scope="row">ID Посещенных локаций</td>
             <td>{{animal.visitedLocations}}</td>
         </tr>
         <tr>
-            <td scope="row">deathDateTime</td>
+            <td scope="row">Дата смерти</td>
             <td>{{animal.deathDateTime}}</td>
         </tr>
     </tbody>
 </table>
 <div class="alert alert-success" role="alert" *ngIf="isAnimalDeleted">
-    Animal has been deleted!
+    Животное было успешно удалено!
 </div>
 <app-json-view [object]="animal" *ngIf="animal"></app-json-view>
