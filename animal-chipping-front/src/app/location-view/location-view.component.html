@@ -1,7 +1,7 @@
 <table class="table table-borderless" *ngIf="location">
     <thead>
         <tr>
-            <th colspan="3" scope="col">Location</th>
+            <th colspan="3" scope="col">Локация</th>
         </tr>
     </thead>
     <tbody>
@@ -10,16 +10,16 @@
             <td>{{location.id}}</td>
         </tr>
         <tr>
-            <td scope="row">latitude</td>
+            <td scope="row">Широта</td>
             <td>{{location.latitude}}</td>
         </tr>
         <tr>
-            <td scope="row">longitude</td>
+            <td scope="row">Долгота</td>
             <td>{{location.longitude}}</td>
         </tr>
     </tbody>
 </table>
 <div class="alert alert-success" role="alert" *ngIf="isLocationDeleted">
-    Location has been deleted!
+    Локация была успешно удалена!
 </div>
 <app-json-view [object]="location" *ngIf="location"></app-json-view>
