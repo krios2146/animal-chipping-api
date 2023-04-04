@@ -4,7 +4,7 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                     aria-expanded="false" aria-controls="collapseOne" (click)="setActiveTab('FIND')">
-                    Find an Animal
+                    Найти животное
                 </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#animalAccordion">
@@ -13,7 +13,7 @@
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="animalId" formControlName="animalId"
                                 placeholder="Enter animal ID">
-                            <label for="animalId">Animal ID</label>
+                            <label for="animalId">ID Животного</label>
                         </div>
                         <button [disabled]="findForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -24,7 +24,7 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="setActiveTab('ADD')">
-                    Add an Animal
+                    Добавить животное
                 </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#animalAccordion">
@@ -33,37 +33,37 @@
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="weight" formControlName="weight"
                                 placeholder="Enter animal weight">
-                            <label for="weight">Weight</label>
+                            <label for="weight">Вес</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="length" formControlName="length"
                                 placeholder="Enter animal length">
-                            <label for="length">Length</label>
+                            <label for="length">Длина</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="height" formControlName="height"
                                 placeholder="Enter animal height">
-                            <label for="height">Height</label>
+                            <label for="height">Высота</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="text" class="form-control" id="gender" formControlName="gender"
                                 placeholder="Enter animal gender">
-                            <label for="gender">Gender</label>
+                            <label for="gender">Пол</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="chipperId" formControlName="chipperId"
                                 placeholder="Enter chipper ID">
-                            <label for="chipperId">Chipper ID</label>
+                            <label for="chipperId">ID владельца</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="chippingLocationId" formControlName="chippingLocationId"
                                 placeholder="Enter chipping Location ID">
-                            <label for="chippingLocationId">Chipping location ID</label>
+                            <label for="chippingLocationId">ID локации чипирования</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="animalTypes" formControlName="animalTypes"
                                 placeholder="Enter animal type">
-                            <label for="animalTypes">Animal type</label>
+                            <label for="animalTypes">ID типа животного</label>
                         </div>
                         <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -74,7 +74,7 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="setActiveTab('UPDATE')">
-                    Update an Animal
+                    Обновить данные о животном
                 </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#animalAccordion">
@@ -83,42 +83,42 @@
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="animalId" formControlName="animalId"
                                 placeholder="Enter animal ID">
-                            <label for="animalId">Animal ID</label>
+                            <label for="animalId">ID животного</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="weight" formControlName="weight"
                                 placeholder="Enter animal weight">
-                            <label for="weight">Weight</label>
+                            <label for="weight">Вес</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="length" formControlName="length"
                                 placeholder="Enter animal length">
-                            <label for="length">Length</label>
+                            <label for="length">Длина</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="height" formControlName="height"
                                 placeholder="Enter animal height">
-                            <label for="height">Height</label>
+                            <label for="height">Высота</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="text" class="form-control" id="gender" formControlName="gender"
                                 placeholder="Enter animal gender">
-                            <label for="gender">Gender</label>
+                            <label for="gender">Пол</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="text" class="form-control" id="lifeStatus" formControlName="lifeStatus"
                                 placeholder="Enter animal life status">
-                            <label for="lifeStatus">Life status</label>
+                            <label for="lifeStatus">Жизненный статус</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="chipperId" formControlName="chipperId"
                                 placeholder="Enter chipper ID">
-                            <label for="chipperId">Chipper ID</label>
+                            <label for="chipperId">ID владельца</label>
                         </div>
                         <div class="form-floating my-3">
                             <input type="number" class="form-control" id="chippingLocationId" formControlName="chippingLocationId"
                                 placeholder="Enter chipping Location ID">
-                            <label for="chippingLocationId">Chipping location ID</label>
+                            <label for="chippingLocationId">ID локации чипирования</label>
                         </div>
                         <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -129,7 +129,7 @@
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="setActiveTab('DELETE')">
-                    Delete an Animal
+                    Удалить животное
                 </button>
             </h2>
             <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#animalAccordion">
@@ -138,7 +138,7 @@
                         <div class="form-floating my-3">
                             <input type="text" class="form-control" id="animalId" formControlName="animalId"
                                 placeholder="Enter animal ID">
-                            <label for="animalId">Animal ID</label>
+                            <label for="animalId">ID животного</label>
                         </div>
                         <button [disabled]="deleteForm.invalid" type="submit" class="btn btn-primary">Submit</button>
                     </form>
