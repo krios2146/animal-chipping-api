@@ -1,20 +1,20 @@
 <table class="table table-borderless" *ngIf="account">
     <thead>
         <tr>
-            <th colspan="4" scope="col">Account</th>
+            <th colspan="4" scope="col">Аккаунт</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td scope="row">Account ID</td>
+            <td scope="row">ID Аккаунта</td>
             <td>{{account.id}}</td>
         </tr>
         <tr>
-            <td scope="row">First name</td>
+            <td scope="row">Имя</td>
             <td>{{account.firstName}}</td>
         </tr>
         <tr>
-            <td scope="row">Last name</td>
+            <td scope="row">Фамилия</td>
             <td>{{account.lastName}}</td>
         </tr>
         <tr>
@@ -24,6 +24,6 @@
     </tbody>
 </table>
 <div class="alert alert-success" role="alert" *ngIf="isAccountDeleted">
-    Account has been deleted!
+    Аккаунт успешно удален!
 </div>
 <app-json-view [object]="account" *ngIf="account"></app-json-view>
