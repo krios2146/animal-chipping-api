@@ -1,7 +1,7 @@
 <table class="table table-borderless" *ngIf="visitedLocation">
     <thead>
         <tr>
-            <th colspan="3" scope="col">Visited Location</th>
+            <th colspan="3" scope="col">Посещенная локация</th>
         </tr>
     </thead>
     <tbody>
@@ -10,16 +10,16 @@
             <td>{{visitedLocation.id}}</td>
         </tr>
         <tr>
-            <td scope="row">Date time of visit</td>
+            <td scope="row">Время посещения</td>
             <td>{{visitedLocation.dateTimeOfVisitLocationPoint}}</td>
         </tr>
         <tr>
-            <td scope="row">Location ID</td>
+            <td scope="row">ID локации</td>
             <td>{{visitedLocation.locationPointId}}</td>
         </tr>
     </tbody>
 </table>
 <div class="alert alert-success" role="alert" *ngIf="isVisitedLocationDeleted">
-    Visited Location has been deleted!
+    Посещенная локация была успешно удалена!
 </div>
 <app-json-view [object]="visitedLocation" *ngIf="visitedLocation"></app-json-view>
