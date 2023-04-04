@@ -1,0 +1,25 @@
+<table class="table table-borderless" *ngIf="visitedLocation">
+    <thead>
+        <tr>
+            <th colspan="3" scope="col">Visited Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">ID</td>
+            <td>{{visitedLocation.id}}</td>
+        </tr>
+        <tr>
+            <td scope="row">Date time of visit</td>
+            <td>{{visitedLocation.dateTimeOfVisitLocationPoint}}</td>
+        </tr>
+        <tr>
+            <td scope="row">Location ID</td>
+            <td>{{visitedLocation.locationPointId}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-success" role="alert" *ngIf="isVisitedLocationDeleted">
+    Visited Location has been deleted!
+</div>
+<app-json-view [object]="visitedLocation" *ngIf="visitedLocation"></app-json-view>

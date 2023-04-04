@@ -1,0 +1,21 @@
+<table class="table table-borderless" *ngIf="animalType">
+    <thead>
+        <tr>
+            <th colspan="2" scope="col">Тип животного</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">ID</td>
+            <td>{{animalType.id}}</td>
+        </tr>
+        <tr>
+            <td scope="row">Type</td>
+            <td>{{animalType.type}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-success" role="alert" *ngIf="isAnimalTypeDeleted">
+    Animal type has been deleted!
+</div>
+<app-json-view [object]="animalType" *ngIf="animalType"></app-json-view>

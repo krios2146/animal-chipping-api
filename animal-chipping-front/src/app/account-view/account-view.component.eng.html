@@ -1,0 +1,29 @@
+<table class="table table-borderless" *ngIf="account">
+    <thead>
+        <tr>
+            <th colspan="4" scope="col">Account</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">Account ID</td>
+            <td>{{account.id}}</td>
+        </tr>
+        <tr>
+            <td scope="row">First name</td>
+            <td>{{account.firstName}}</td>
+        </tr>
+        <tr>
+            <td scope="row">Last name</td>
+            <td>{{account.lastName}}</td>
+        </tr>
+        <tr>
+            <td scope="row">Email</td>
+            <td>{{account.email}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-success" role="alert" *ngIf="isAccountDeleted">
+    Account has been deleted!
+</div>
+<app-json-view [object]="account" *ngIf="account"></app-json-view>
