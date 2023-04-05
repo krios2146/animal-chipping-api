@@ -1,1 +1,24 @@
-<p>registration works!</p>
+<div class="container w-50">
+    <h2 class="mb-5">Регистрация</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                placeholder="Enter First Name">
+            <label for="firstName">Имя</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name">
+            <label for="lastName">Фамилия</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter Email">
+            <label for="email">Email</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="password" class="form-control" id="password" formControlName="password"
+                placeholder="Enter Password">
+            <label for="password">Пароль</label>
+        </div>
+        <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary mt-3 violet-bg">Зарегестрироваться</button>
+    </form>
+</div>

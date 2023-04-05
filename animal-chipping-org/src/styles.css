@@ -2,3 +2,8 @@
 .app-root {
     background-color: #fbfbfb !important;
 }
+.violet-bg {
+    color: white !important;
+    background-color: slateblue !important;
+    border-color: slateblue !important;
+}
