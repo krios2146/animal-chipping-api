@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
-import { AccountResponse } from './account/account-response';
 import { AccountRequest } from './account/account-request';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataShareService {
-  private account: AccountRequest | undefined;
-  private accountId: number | undefined;
+  private emailSource = new BehaviorSubject("");
+  private passwordSource = new BehaviorSubject("");
+  private idSource = new BehaviorSubject("");
+  
+  email = this.emailSource.asObservable();
+  password = this.emailSource.asObservable();
+  id = this.emailSource.asObservable();
 
   constructor() { }
 
-  setAccount(account: AccountRequest) {
-    this.account = account;
+  setEmail(email: string) {
+    this.emailSource.next(email);
   }
 
-  getAccount(): AccountRequest {
-    return this.account!;
+  setId(id: string) {
+    this.idSource.next(id);
   }
 
-  setAccountId(accountId: number) {
-    this.accountId = accountId;
-  }
-
-  getAccountId(): number {
-    return this.accountId!;
+  setPassword(password: string) {
+    this.passwordSource.next(password);
   }
 }
