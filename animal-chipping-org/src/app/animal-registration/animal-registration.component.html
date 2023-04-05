@@ -1,1 +1,26 @@
-<p>animal-registration works!</p>
+<div class="container w-50">
+    <h2 class="mb-5">Регистрация питомца</h2>
+    <form [formGroup]="registerAnimalForm" (ngSubmit)="registerAnimal()">
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" id="firstName" placeholder="">
+            <label for="firstName">Имя</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" id="email" formControlName="weight" placeholder="">
+            <label for="email">Вес</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" id="email" formControlName="gender" placeholder="">
+            <label for="email">Пол</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" id="password" placeholder="">
+            <label for="password">Порода</label>
+        </div>
+        <button [disabled]="registerAnimalForm.invalid" type="submit"
+            class="btn btn-primary mt-3 violet-bg">Зарегестрировать</button>
+    </form>
+    <div *ngIf="registeredAnimal" class="alert alert-success mt-5" role="alert">
+        Регистрация прошла успешно. ID вашего питомца = {{registeredAnimal.id}}
+    </div>
+</div>
