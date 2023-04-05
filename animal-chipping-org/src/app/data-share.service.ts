@@ -11,8 +11,8 @@ export class DataShareService {
   private idSource = new BehaviorSubject("");
   
   email = this.emailSource.asObservable();
-  password = this.emailSource.asObservable();
-  id = this.emailSource.asObservable();
+  password = this.passwordSource.asObservable();
+  id = this.idSource.asObservable();
 
   constructor() { }
 
