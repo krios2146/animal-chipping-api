@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AccountResponse } from '../account/account-response';
 
 @Component({
   selector: 'app-registration',
@@ -9,6 +11,8 @@ import { RegistrationService } from '../registration.service';
 })
 export class RegistrationComponent {
   registerForm: FormGroup;
+
+  registeredAccount: AccountResponse | undefined;
 
   constructor(private formBuilder: FormBuilder, private registrationService: RegistrationService) {
     this.registerForm = this.formBuilder.group({
@@ -20,6 +24,13 @@ export class RegistrationComponent {
   }
 
   register() {
-    
+    this.registrationService.register(this.registerForm.value).subscribe(
+      (response: AccountResponse) => {
+        this.registeredAccount = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
