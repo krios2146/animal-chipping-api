@@ -1,0 +1,18 @@
+.bg-image {
+    background-image: url('https://www.akc.org/wp-content/uploads/2018/10/Black-dogs-superstition-hero.jpg');
+    height: 555px;
+    background-position: 0%;
+    position: relative;
+    background-position-y: bottom;
+}
+.end-15 {
+    right: 15%!important;
+}
+.violet {
+    color: blueviolet !important;
+}
+.violet-bg {
+    color: white;
+    background-color: slateblue;
+    border-color: slateblue;
+}
