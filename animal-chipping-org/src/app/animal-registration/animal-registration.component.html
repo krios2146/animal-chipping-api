@@ -7,11 +7,15 @@
         </div>
         <div class="form-floating my-3">
             <input type="number" class="form-control" id="weight" formControlName="weight" placeholder="s">
-            <label for="weight">Вес</label>
+            <label for="weight">Вес (кг)</label>
         </div>
         <div class="form-floating my-3">
-            <input type="text" class="form-control" id="gender" formControlName="gender" placeholder="s">
-            <label for="gender">Пол</label>
+            <select class="form-select" id="floatingSelect" aria-label="asd" formControlName="gender">
+                <option value="MALE">Мужской</option>
+                <option value="FEMALE">Женский</option>
+                <option value="OTHER">Другой</option>
+            </select>
+            <label for="floatingSelect">Пол</label>
         </div>
         <div class="form-floating my-3">
             <input type="text" class="form-control" id="breed" placeholder="s">
@@ -22,12 +26,12 @@
             <label for="date-of-birth">Дата рождения</label>
         </div>
         <div class="form-floating my-3">
-            <input type="number" class="form-control" id="gps-id" placeholder="s">
-            <label for="gps-id">ID GPS трекера</label>
-        </div>
-        <div class="form-floating my-3">
             <input type="number" class="form-control" id="account-id" formControlName="chipperId" placeholder="s">
             <label for="account-id">ID хозяина</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="number" class="form-control" id="gps-id" placeholder="s">
+            <label for="gps-id">ID GPS трекера</label>
         </div>
         <button [disabled]="registerAnimalForm.invalid" type="submit"
             class="btn btn-primary mt-3 violet-bg">Зарегестрировать</button>

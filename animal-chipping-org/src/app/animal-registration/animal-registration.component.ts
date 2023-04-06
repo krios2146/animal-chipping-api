@@ -25,6 +25,8 @@ export class AnimalRegistrationComponent {
   }
 
   registerAnimal() {
+    console.log(this.registerAnimalForm.get('gender')?.value);
+    
     const animal: AnimalCreateRequest = {
       weight: this.registerAnimalForm.get('weight')?.value,
       gender: this.registerAnimalForm.get('gender')?.value,
