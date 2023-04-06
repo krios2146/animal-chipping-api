@@ -8,13 +8,15 @@ import { AnimalRegistrationComponent } from './animal-registration/animal-regist
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LocationSearchComponent } from './location-search/location-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AnimalRegistrationComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LocationSearchComponent
   ],
   imports: [
     BrowserModule,
