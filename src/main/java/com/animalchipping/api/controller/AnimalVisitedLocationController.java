@@ -113,6 +113,12 @@ public class AnimalVisitedLocationController {
                 animal
         );
 
+        animalVisitedLocation = animalVisitedLocationRepository.save(animalVisitedLocation);
+
+        List<AnimalVisitedLocation> visitedLocations = animal.getVisitedLocations();
+        visitedLocations.add(animalVisitedLocation);
+        animal.setVisitedLocations(visitedLocations);
+
         AnimalVisitedLocationDto animalVisitedLocationDto = getDtoFrom(animalVisitedLocation);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(animalVisitedLocationDto);
