@@ -1,1 +1,18 @@
-<p>table-location-view works!</p>
+<table class="table" *ngIf="locations">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Время посещения</th>
+            <th scope="col">Широта</th>
+            <th scope="col">Долгота</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let location of locations">
+            <td>{{location.id}}</td>
+            <td>{{location.dateTimeOfVisitLocationPoint}}</td>
+            <td>{{location.location.latitude}}</td>
+            <td>{{location.location.longitude}}</td>
+        </tr>
+    </tbody>
+</table>

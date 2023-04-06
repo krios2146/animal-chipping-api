@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { VisitedLocation } from '../visited-location/visited-location';
 
 @Component({
   selector: 'app-table-location-view',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./table-location-view.component.css']
 })
 export class TableLocationViewComponent {
-
+  @Input() locations: VisitedLocation[] | undefined;
 }
