@@ -5,7 +5,6 @@ import { AnimalResponse } from '../animal/animal-response';
 import { Gender } from '../animal/enum/gender.enum';
 import { AnimalCreateRequest } from '../animal/animal-create-request';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RegistrationComponent } from '../registration/registration.component';
 
 @Component({
   selector: 'app-animal-registration',
@@ -15,24 +14,20 @@ import { RegistrationComponent } from '../registration/registration.component';
 export class AnimalRegistrationComponent {
   registerAnimalForm: FormGroup;
 
-  private registeredUserId: number;
-
   registeredAnimal: AnimalResponse | undefined;
 
-  constructor(private formBuilder: FormBuilder, private animalRegistrationService: AnimalRegistrationService, private registration: RegistrationComponent) {
+  constructor(private formBuilder: FormBuilder, private animalRegistrationService: AnimalRegistrationService) {
     this.registerAnimalForm = this.formBuilder.group({
       weight: [null, [Validators.required, Validators.min(1)]],
       gender: [null, [Validators.required, this.enumValidator(Gender)]],
     });
-
-    this.registeredUserId = registration.registeredAccount!.id;
   }
 
   registerAnimal() {
     const animal: AnimalCreateRequest = {
       weight: this.registerAnimalForm.get('weight')?.value,
       gender: this.registerAnimalForm.get('gender')?.value,
-      chipperId: this.registeredUserId,
+      chipperId: 1,
       length : 10,
       height : 10,
       chippingLocationId : 1,
