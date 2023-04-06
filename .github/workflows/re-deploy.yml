@@ -14,7 +14,7 @@ jobs:
             cd animal-chipping-api && 
             docker-compose down
             docker rmi krios2146/animal-chipping-api:api-frontend krios2146/animal-chipping-api:api-backend krios2146/animal-chipping-api:chipping-org -f
-            docker-compose up
+            docker-compose up -d
             exit
           host: 78.153.130.215
           username: root
