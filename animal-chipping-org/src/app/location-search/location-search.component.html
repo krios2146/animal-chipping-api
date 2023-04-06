@@ -1,6 +1,6 @@
 <div class="container">
     <h2 class="mb-5">Поиск питомца</h2>
-    <form [formGroup]="locationSearchForm" (ngSubmit)="search()">
+    <form [formGroup]="locationSearchForm" (ngSubmit)="search()" class="mb-5">
         <div class="row d-flex">
             <div class="col">
                 <div class="form-floating my-3">
@@ -28,7 +28,5 @@
             </div>
         </div>
     </form>
-    <div *ngIf="foundedLocations" class="alert alert-success mt-5" role="alert">
-
-    </div>
+    <app-table-location-view [locations]="foundedLocations" *ngIf="foundedLocations"></app-table-location-view>
 </div>
