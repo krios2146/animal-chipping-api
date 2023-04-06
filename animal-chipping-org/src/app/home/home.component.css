@@ -4,6 +4,7 @@
     background-position: 0%;
     position: relative;
     background-position-y: bottom;
+    background-repeat: no-repeat;
 }
 .end-15 {
     right: 15%!important;
