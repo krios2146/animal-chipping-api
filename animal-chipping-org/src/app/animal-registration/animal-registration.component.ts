@@ -20,6 +20,7 @@ export class AnimalRegistrationComponent {
     this.registerAnimalForm = this.formBuilder.group({
       weight: [null, [Validators.required, Validators.min(1)]],
       gender: [null, [Validators.required, this.enumValidator(Gender)]],
+      chipperId: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -27,7 +28,7 @@ export class AnimalRegistrationComponent {
     const animal: AnimalCreateRequest = {
       weight: this.registerAnimalForm.get('weight')?.value,
       gender: this.registerAnimalForm.get('gender')?.value,
-      chipperId: 1,
+      chipperId: this.registerAnimalForm.get('chipperId')?.value,
       length : 10,
       height : 10,
       chippingLocationId : 1,
