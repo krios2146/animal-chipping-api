@@ -9,6 +9,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationSearchComponent } from './location-search/location-search.component';
+import { TableLocationViewComponent } from './table-location-view/table-location-view.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LocationSearchComponent } from './location-search/location-search.compo
     HomeComponent,
     AnimalRegistrationComponent,
     RegistrationComponent,
-    LocationSearchComponent
+    LocationSearchComponent,
+    TableLocationViewComponent
   ],
   imports: [
     BrowserModule,
