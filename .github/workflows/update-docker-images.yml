@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build a backend Docker image
-        run: docker build . --build-arg SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} --build-arg POSTGRES_USER=${{ secrets.POSTGRES_USER }} --build-arg POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} --tag api-backend --no-cache-
+        run: docker build . --tag api-backend --no-cache
       - name: Login to a docker registry
         run: docker login -u krios2146 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
       - name: Tag the local image to a remote image
