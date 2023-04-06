@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AccountRequest } from './account/account-request';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataShareService {
-  private emailSource = new BehaviorSubject("");
-  private passwordSource = new BehaviorSubject("");
-  private idSource = new BehaviorSubject("");
+  private emailSource = new BehaviorSubject<string>("email");
+  private passwordSource = new BehaviorSubject<string>("password");
+  private idSource = new BehaviorSubject<number>(1);
   
   email = this.emailSource.asObservable();
   password = this.passwordSource.asObservable();
@@ -20,7 +19,7 @@ export class DataShareService {
     this.emailSource.next(email);
   }
 
-  setId(id: string) {
+  setId(id: number) {
     this.idSource.next(id);
   }
 
