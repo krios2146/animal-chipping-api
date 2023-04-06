@@ -27,3 +27,10 @@ services:
       - "4200:4200"
     depends_on:
       - api-backend
+
+  chipping-org:
+    image: krios2146/animal-chipping-api:chipping-org
+    ports:
+      - "4201:4200"
+    depends_on:
+      - api-backend
