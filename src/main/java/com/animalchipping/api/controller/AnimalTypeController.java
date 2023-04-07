@@ -90,9 +90,6 @@ public class AnimalTypeController {
 
         AnimalType animalType = animalTypeOptional.get();
 
-        if (animalRepository.existsByAnimalType(animalType)) {
-            return ResponseEntity.badRequest().build();
-        }
 
         animalTypeRepository.delete(animalType);
 

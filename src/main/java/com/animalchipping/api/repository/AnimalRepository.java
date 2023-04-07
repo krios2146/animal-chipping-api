@@ -14,14 +14,4 @@ public interface AnimalRepository extends JpaRepository<Animal, Long>, JpaSpecif
 
     boolean existsByChippingLocation(Location location);
 
-    @Query("SELECT CASE " +
-            "WHEN COUNT(a) > 0 THEN true " +
-            "ELSE false " +
-            "END " +
-            "FROM Animal a " +
-            "WHERE EXISTS " +
-            "(SELECT at FROM AnimalType at " +
-            "WHERE at.type = :#{#type.type} " +
-            "AND at.animal = a)")
-    boolean existsByAnimalType(@Param("type") AnimalType type);
 }
