@@ -4,6 +4,7 @@ import com.animalchipping.api.entity.Animal;
 import com.animalchipping.api.entity.AnimalVisitedLocation;
 import com.animalchipping.api.entity.Location;
 import com.animalchipping.api.entity.dto.AnimalVisitedLocationDto;
+import com.animalchipping.api.entity.dto.AnimalVisitedLocationFrontDto;
 import com.animalchipping.api.entity.enums.LifeStatus;
 import com.animalchipping.api.entity.specification.AnimalVisitedLocationSpecification;
 import com.animalchipping.api.repository.AnimalRepository;
@@ -41,7 +42,7 @@ public class AnimalVisitedLocationController {
     }
 
     @GetMapping("/{animalId}/locations")
-    public ResponseEntity<List<AnimalVisitedLocationDto>> getAnimalLocationPoints(
+    public ResponseEntity<List<AnimalVisitedLocationFrontDto>> getAnimalLocationPoints(
             @PathVariable Long animalId,
             @RequestParam(required = false) String startDateTime,
             @RequestParam(required = false) String endDateTime,
@@ -71,8 +72,8 @@ public class AnimalVisitedLocationController {
             return ResponseEntity.notFound().build();
         }
 
-        List<AnimalVisitedLocationDto> visitedLocationDtoList = visitedLocations.getContent().stream()
-                .map(AnimalVisitedLocationController::getDtoFrom)
+        List<AnimalVisitedLocationFrontDto> visitedLocationDtoList = visitedLocations.getContent().stream()
+                .map(AnimalVisitedLocationController::getFrontDtoFrom)
                 .toList();
 
         return ResponseEntity.ok().body(visitedLocationDtoList);
@@ -207,6 +208,15 @@ public class AnimalVisitedLocationController {
                 visitedLocation.getId(),
                 OffsetDateTime.of(visitedLocation.getDateTimeOfVisitLocationPoint(), ZoneOffset.UTC),
                 visitedLocation.getLocation().getId()
+        );
+    }
+
+    private static AnimalVisitedLocationFrontDto getFrontDtoFrom(AnimalVisitedLocation visitedLocation) {
+        return new AnimalVisitedLocationFrontDto(
+                visitedLocation.getId(),
+                OffsetDateTime.of(visitedLocation.getDateTimeOfVisitLocationPoint(), ZoneOffset.UTC),
+                visitedLocation.getLocation().getLatitude(),
+                visitedLocation.getLocation().getLongitude()
         );
     }
 
