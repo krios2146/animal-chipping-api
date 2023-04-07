@@ -41,7 +41,7 @@ public class AnimalVisitedLocationController {
     }
 
     @GetMapping("/{animalId}/locations")
-    public ResponseEntity<List<AnimalVisitedLocation>> getAnimalLocationPoints(
+    public ResponseEntity<List<AnimalVisitedLocationDto>> getAnimalLocationPoints(
             @PathVariable Long animalId,
             @RequestParam(required = false) String startDateTime,
             @RequestParam(required = false) String endDateTime,
@@ -71,7 +71,11 @@ public class AnimalVisitedLocationController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(visitedLocations.getContent());
+        List<AnimalVisitedLocationDto> visitedLocationDtoList = visitedLocations.getContent().stream()
+                .map(AnimalVisitedLocationController::getDtoFrom)
+                .toList();
+
+        return ResponseEntity.ok().body(visitedLocationDtoList);
     }
 
     @PostMapping("/{animalId}/locations/{locationId}")
@@ -118,6 +122,8 @@ public class AnimalVisitedLocationController {
         List<AnimalVisitedLocation> visitedLocations = animal.getVisitedLocations();
         visitedLocations.add(animalVisitedLocation);
         animal.setVisitedLocations(visitedLocations);
+
+        animalRepository.save(animal);
 
         AnimalVisitedLocationDto animalVisitedLocationDto = getDtoFrom(animalVisitedLocation);
 
