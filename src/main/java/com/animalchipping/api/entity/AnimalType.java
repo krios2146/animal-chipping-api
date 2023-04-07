@@ -14,10 +14,4 @@ public class AnimalType {
     @GeneratedValue
     private Long id;
     private String type;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "animal_id")
-    private Animal animal;
-
 }

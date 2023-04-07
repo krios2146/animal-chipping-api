@@ -19,7 +19,7 @@ public class Animal {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "animal")
+    @OneToMany
     private Set<AnimalType> animalTypes;
 
     private Double weight;
@@ -42,7 +42,7 @@ public class Animal {
     @JoinColumn(name = "chipping_location_id")
     private Location chippingLocation;
 
-    @OneToMany(mappedBy = "animal")
+    @OneToMany
     private List<AnimalVisitedLocation> visitedLocations;
 
     private LocalDateTime deathDateTime;
