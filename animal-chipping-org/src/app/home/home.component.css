@@ -16,6 +16,9 @@
 .dark-violet {
     color: darkslateblue;
 }
+.white {
+    color: white;
+}
 .violet-bg {
     color: white;
     background-color: slateblue;
@@ -28,4 +31,29 @@
     background-image: url('../../assets/dog-vertical.jpg');
     background-size: contain;
     background-repeat: no-repeat;
+}
+.search {
+    background-image: url('../../assets/placeholder.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-self: center;
+    height: 8rem;
+    width: 8rem;
+}
+.gps {
+    background-image: url('../../assets/tracker.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-self: center;
+    margin-left: 3.5rem;
+    height: 8rem;
+    width: 8rem;
+}
+.service {
+    background-image: url('../../assets/repair-tool.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-self: center;
+    height: 8rem;
+    width: 8rem;
 }
