@@ -1,7 +1,9 @@
 package com.animalchipping.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +16,8 @@ public class AnimalType {
     @GeneratedValue
     private Long id;
     private String type;
+
+    public AnimalType(String type) {
+        this.type = type;
+    }
 }
